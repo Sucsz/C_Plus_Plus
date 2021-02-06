@@ -5,7 +5,7 @@
 #include <cmath>
 using namespace std;
 
-// Сигнатуры функций
+// РЎРёРіРЅР°С‚СѓСЂС‹ С„СѓРЅРєС†РёР№
 vector<bool> to_binary(unsigned);
 unsigned to_dec(string);
 string to_even_rodeh(unsigned);

@@ -1,33 +1,33 @@
 #include "Header.h"
-// Работу выполнил студент 3го курса РГПУ им. А. И. Герцена Семыкин В.В.
-// Время написания 2 часа минут
-// Данная программа реализует алгоритмы интервального-кодирования(1) и интервального-декодирования(1). 
-// Работает для случаев, где интервал между одинаковыми буквами <= 9
-// Компилятор mingw-5.2.0
+// Р Р°Р±РѕС‚Сѓ РІС‹РїРѕР»РЅРёР» СЃС‚СѓРґРµРЅС‚ 3РіРѕ РєСѓСЂСЃР° Р Р“РџРЈ РёРј. Рђ. Р. Р“РµСЂС†РµРЅР° РЎРµРјС‹РєРёРЅ Р’.Р’.
+// Р’СЂРµРјСЏ РЅР°РїРёСЃР°РЅРёСЏ 2 С‡Р°СЃР° РјРёРЅСѓС‚
+// Р”Р°РЅРЅР°СЏ РїСЂРѕРіСЂР°РјРјР° СЂРµР°Р»РёР·СѓРµС‚ Р°Р»РіРѕСЂРёС‚РјС‹ РёРЅС‚РµСЂРІР°Р»СЊРЅРѕРіРѕ-РєРѕРґРёСЂРѕРІР°РЅРёСЏ(1) Рё РёРЅС‚РµСЂРІР°Р»СЊРЅРѕРіРѕ-РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ(1). 
+// Р Р°Р±РѕС‚Р°РµС‚ РґР»СЏ СЃР»СѓС‡Р°РµРІ, РіРґРµ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ РѕРґРёРЅР°РєРѕРІС‹РјРё Р±СѓРєРІР°РјРё <= 9
+// РљРѕРјРїРёР»СЏС‚РѕСЂ mingw-5.2.0
 int main()
 {
-    system("chcp 1251");  // Переходим на русский язык в консоли
+    system("chcp 1251");  // РџРµСЂРµС…РѕРґРёРј РЅР° СЂСѓСЃСЃРєРёР№ СЏР·С‹Рє РІ РєРѕРЅСЃРѕР»Рё
     system("cls");
-    cout << "\t\tТЕСТИРОВАНИЕ:\n";
+    cout << "\t\tРўР•РЎРўРР РћР’РђРќРР•:\n";
     tests();
     string input;
-    cout << "\t\tСЦЕНАРИЙ:\n";
-    cout << "Введите сообщение, которое вы желаете кодировать: \n\t\t";
+    cout << "\t\tРЎР¦Р•РќРђР РР™:\n";
+    cout << "Р’РІРµРґРёС‚Рµ СЃРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ РІС‹ Р¶РµР»Р°РµС‚Рµ РєРѕРґРёСЂРѕРІР°С‚СЊ: \n\t\t";
     cin >> input;
-    cout << "\nЗакодированное сообщение:\n";
+    cout << "\nР—Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     //show_freq_table(frequency_analysis(input));
     string code = to_range_2(input);
     cout << "\t\t" << code << '\n';
-    cout << "Введите сообщение, которое вы желаете декодировать: \n\t\t";
+    cout << "Р’РІРµРґРёС‚Рµ СЃРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ РІС‹ Р¶РµР»Р°РµС‚Рµ РґРµРєРѕРґРёСЂРѕРІР°С‚СЊ: \n\t\t";
     string decode;
     cin >> decode;
-    cout << "Введите количество символов алфавита: \n";
+    cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ Р°Р»С„Р°РІРёС‚Р°: \n";
     vector<char> alphabet;
     int alphabet_size;
     cin >> alphabet_size;
     for (int counter = 0; counter < alphabet_size; counter++)
     {
-        cout << "Введите текущий символ алфавита:\n";
+        cout << "Р’РІРµРґРёС‚Рµ С‚РµРєСѓС‰РёР№ СЃРёРјРІРѕР» Р°Р»С„Р°РІРёС‚Р°:\n";
         char symbol;
         cin >> symbol;
         alphabet.push_back(symbol);
@@ -37,8 +37,8 @@ int main()
     return 0;
 }
 
-// Функция реализует частотный анализ входящей  строки
-map<char, int> frequency_analysis(string input) // Функция, реализующая частотный анализ входящей строки
+// Р¤СѓРЅРєС†РёСЏ СЂРµР°Р»РёР·СѓРµС‚ С‡Р°СЃС‚РѕС‚РЅС‹Р№ Р°РЅР°Р»РёР· РІС…РѕРґСЏС‰РµР№  СЃС‚СЂРѕРєРё
+map<char, int> frequency_analysis(string input) // Р¤СѓРЅРєС†РёСЏ, СЂРµР°Р»РёР·СѓСЋС‰Р°СЏ С‡Р°СЃС‚РѕС‚РЅС‹Р№ Р°РЅР°Р»РёР· РІС…РѕРґСЏС‰РµР№ СЃС‚СЂРѕРєРё
 {
     map<char, int> freq_table;
     int size = input.size();
@@ -46,25 +46,25 @@ map<char, int> frequency_analysis(string input) // Функция, реализующая частотны
         freq_table[input[counter]] += 1;
     return freq_table;
 }
-// Функция выводит таблицу частот на экран
+// Р¤СѓРЅРєС†РёСЏ РІС‹РІРѕРґРёС‚ С‚Р°Р±Р»РёС†Сѓ С‡Р°СЃС‚РѕС‚ РЅР° СЌРєСЂР°РЅ
 void show_freq_table(map<char, int> freq_table)
 {
     map<char, int>::iterator it;
     for (it = freq_table.begin(); it != freq_table.end(); it++)
-        cout << "Символ: " << it->first << "\tКоличество: " << it->second << '\n';
+        cout << "РЎРёРјРІРѕР»: " << it->first << "\tРљРѕР»РёС‡РµСЃС‚РІРѕ: " << it->second << '\n';
     cout << "\n\n";
 }
-// Кодирует переданное сообщением интервальным кодом 1
+// РљРѕРґРёСЂСѓРµС‚ РїРµСЂРµРґР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµРј РёРЅС‚РµСЂРІР°Р»СЊРЅС‹Рј РєРѕРґРѕРј 1
 string to_range_2(string input)
 {
     map<char, int> freq_table = frequency_analysis(input);
     map<char, int>::reverse_iterator rit;
     string code;
-    for (rit = freq_table.rbegin(); rit != freq_table.rend(); rit++) // Дописываем алфавит в начало строки
+    for (rit = freq_table.rbegin(); rit != freq_table.rend(); rit++) // Р”РѕРїРёСЃС‹РІР°РµРј Р°Р»С„Р°РІРёС‚ РІ РЅР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё
         input.insert(input.begin(), rit->first);
     for (int counter = input.size() - 1; counter >= freq_table.size(); counter--)
     {
-        map<char,int> num_of_dif; // Считает количество различных символов
+        map<char,int> num_of_dif; // РЎС‡РёС‚Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СЂР°Р·Р»РёС‡РЅС‹С… СЃРёРјРІРѕР»РѕРІ
         for (int counter2 = counter - 1; counter2 >= 0; counter2--)
         {
             if (input[counter] == input[counter2])
@@ -75,12 +75,12 @@ string to_range_2(string input)
     }
     return code;
 }
-// Декодирует переданное сообщение, закодированное интервальным кодом 1
+// Р”РµРєРѕРґРёСЂСѓРµС‚ РїРµСЂРµРґР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ, Р·Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ РёРЅС‚РµСЂРІР°Р»СЊРЅС‹Рј РєРѕРґРѕРј 1
 string decode_range_2(vector<char> alphabet, string code)
 {
     string decode;
     for (int counter = alphabet.size() - 1; counter >= 0; counter--)
-        code.insert(code.begin(), alphabet[counter]); // Дописали алфавит
+        code.insert(code.begin(), alphabet[counter]); // Р”РѕРїРёСЃР°Р»Рё Р°Р»С„Р°РІРёС‚
     for (int counter = alphabet.size(); counter < code.size(); counter++)
     {
         int num_of_dif = code[counter] - '0';
@@ -126,9 +126,9 @@ void tests()
 }
 void test_1()
 {
-    string input = "cabbbabbac"; // Тут пишем, что хотим закодировать
+    string input = "cabbbabbac"; // РўСѓС‚ РїРёС€РµРј, С‡С‚Рѕ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
     string code = to_range_2(input);
-    vector<char> alphabet; // Алфавит для декодирования
+    vector<char> alphabet; // РђР»С„Р°РІРёС‚ РґР»СЏ РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ
     alphabet.push_back('a');
     alphabet.push_back('b');
     alphabet.push_back('c');
@@ -140,9 +140,9 @@ void test_1()
 }
 void test_2()
 {
-    string input = "abcdabcddcba"; // Тут пишем, что хотим закодировать
+    string input = "abcdabcddcba"; // РўСѓС‚ РїРёС€РµРј, С‡С‚Рѕ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
     string code = to_range_2(input);
-    vector<char> alphabet; // Алфавит для декодирования
+    vector<char> alphabet; // РђР»С„Р°РІРёС‚ РґР»СЏ РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ
     alphabet.push_back('a');
     alphabet.push_back('b');
     alphabet.push_back('c');
@@ -155,14 +155,14 @@ void test_2()
 }
 void test_3()
 {
-    string input = "абракадабра"; // Тут пишем, что хотим закодировать
+    string input = "Р°Р±СЂР°РєР°РґР°Р±СЂР°"; // РўСѓС‚ РїРёС€РµРј, С‡С‚Рѕ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
     string code = to_range_2(input);
-    vector<char> alphabet; // Алфавит для декодирования
-    alphabet.push_back('а');
-    alphabet.push_back('б');
-    alphabet.push_back('д');
-    alphabet.push_back('к');
-    alphabet.push_back('р');
+    vector<char> alphabet; // РђР»С„Р°РІРёС‚ РґР»СЏ РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ
+    alphabet.push_back('Р°');
+    alphabet.push_back('Р±');
+    alphabet.push_back('Рґ');
+    alphabet.push_back('Рє');
+    alphabet.push_back('СЂ');
     string decode = decode_range_2(alphabet, code);
     if (decode == input)
         cout << "\nTEST TRUE\n";
@@ -171,14 +171,14 @@ void test_3()
 }
 void test_4()
 {
-    string input = "артист"; // Тут пишем, что хотим закодировать
+    string input = "Р°СЂС‚РёСЃС‚"; // РўСѓС‚ РїРёС€РµРј, С‡С‚Рѕ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
     string code = to_range_2(input);
-    vector<char> alphabet; // Алфавит для декодирования
-    alphabet.push_back('а');
-    alphabet.push_back('и');
-    alphabet.push_back('р');
-    alphabet.push_back('с');
-    alphabet.push_back('т');
+    vector<char> alphabet; // РђР»С„Р°РІРёС‚ РґР»СЏ РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ
+    alphabet.push_back('Р°');
+    alphabet.push_back('Рё');
+    alphabet.push_back('СЂ');
+    alphabet.push_back('СЃ');
+    alphabet.push_back('С‚');
     string decode = decode_range_2(alphabet, code);
     if (decode == input)
         cout << "\nTEST TRUE\n";
@@ -187,14 +187,14 @@ void test_4()
 }
 void test_5()
 {
-    string input = "азбука"; // Тут пишем, что хотим закодировать
+    string input = "Р°Р·Р±СѓРєР°"; // РўСѓС‚ РїРёС€РµРј, С‡С‚Рѕ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
     string code = to_range_2(input);
-    vector<char> alphabet; // Алфавит для декодирования
-    alphabet.push_back('а');
-    alphabet.push_back('б');
-    alphabet.push_back('з');
-    alphabet.push_back('к');
-    alphabet.push_back('у');
+    vector<char> alphabet; // РђР»С„Р°РІРёС‚ РґР»СЏ РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ
+    alphabet.push_back('Р°');
+    alphabet.push_back('Р±');
+    alphabet.push_back('Р·');
+    alphabet.push_back('Рє');
+    alphabet.push_back('Сѓ');
     string decode = decode_range_2(alphabet, code);
     if (decode == input)
         cout << "\nTEST TRUE\n";

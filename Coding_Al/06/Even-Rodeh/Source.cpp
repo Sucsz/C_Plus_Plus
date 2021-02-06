@@ -2,24 +2,24 @@
 
 int main()
 {
-    system("chcp 1251");  // Переходим на русский язык в консоли
+    system("chcp 1251");  // РџРµСЂРµС…РѕРґРёРј РЅР° СЂСѓСЃСЃРєРёР№ СЏР·С‹Рє РІ РєРѕРЅСЃРѕР»Рё
     system("cls");
     loop_test();
     unsigned input;
-    cout << "Введите целое положительное число, которое вы желаете кодировать: \n\t\t";
+    cout << "Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ, РєРѕС‚РѕСЂРѕРµ РІС‹ Р¶РµР»Р°РµС‚Рµ РєРѕРґРёСЂРѕРІР°С‚СЊ: \n\t\t";
     cin >> input;
-    cout << "\nЗакодированное сообщение:\n";
+    cout << "\nР—Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     string code = to_even_rodeh(input);
     cout << "\t\t" << code << "\n\n";
-    cout << "Декодированное закодированное сообщение:\n";
+    cout << "Р”РµРєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ Р·Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     unsigned decode = decode_even_rodeh(code);
     cout << "\t\t" << decode << "\n\n";
-    if (input == decode) cout << "Исходное сообщение совпало c декодированным!\n\n";
-    else cout << "Исходное сообщение не совпало c декодированным!\n\n";
+    if (input == decode) cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
+    else cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РЅРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
     system("pause");
     return 0;
 }
-// Функция переводит число в двоичную систему счисления
+// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґРёС‚ С‡РёСЃР»Рѕ РІ РґРІРѕРёС‡РЅСѓСЋ СЃРёСЃС‚РµРјСѓ СЃС‡РёСЃР»РµРЅРёСЏ
 vector<bool> to_binary(unsigned num)
 {
     vector<bool> res;
@@ -30,7 +30,7 @@ vector<bool> to_binary(unsigned num)
     }
     return res;
 }
-// Функция переводит число в десятичную систему счисления
+// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґРёС‚ С‡РёСЃР»Рѕ РІ РґРµСЃСЏС‚РёС‡РЅСѓСЋ СЃРёСЃС‚РµРјСѓ СЃС‡РёСЃР»РµРЅРёСЏ
 unsigned to_dec(string bin)
 {
     unsigned res = 0;
@@ -56,17 +56,17 @@ string to_even_rodeh(unsigned num)
     }
     vector <bool> bin_num = to_binary(num);
     vector <bool> code;
-    code.push_back(false); // Приписываем в конец 0
+    code.push_back(false); // РџСЂРёРїРёСЃС‹РІР°РµРј РІ РєРѕРЅРµС† 0
     while (bin_num.size() != 3)
     {
-        for (int counter = 0; counter < bin_num.size(); counter++) // Приписываем двоичное представление группы битов слева
+        for (int counter = 0; counter < bin_num.size(); counter++) // РџСЂРёРїРёСЃС‹РІР°РµРј РґРІРѕРёС‡РЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РіСЂСѓРїРїС‹ Р±РёС‚РѕРІ СЃР»РµРІР°
             code.insert(code.begin(), bin_num[counter]);
         bin_num = to_binary(bin_num.size());
     }
-    for (int counter = 0; counter < bin_num.size(); counter++)    // Приписываем двоичное представление первой группы битов слева,тк цикл выше ее не покрывает 
+    for (int counter = 0; counter < bin_num.size(); counter++)    // РџСЂРёРїРёСЃС‹РІР°РµРј РґРІРѕРёС‡РЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РїРµСЂРІРѕР№ РіСЂСѓРїРїС‹ Р±РёС‚РѕРІ СЃР»РµРІР°,С‚Рє С†РёРєР» РІС‹С€Рµ РµРµ РЅРµ РїРѕРєСЂС‹РІР°РµС‚ 
         code.insert(code.begin(), bin_num[counter]);
     string to_string;
-    for (int counter = 0; counter < code.size(); counter++)      // Переводим в строку
+    for (int counter = 0; counter < code.size(); counter++)      // РџРµСЂРµРІРѕРґРёРј РІ СЃС‚СЂРѕРєСѓ
         to_string += (int)code[counter] + '0';
     return to_string;
 }
@@ -82,7 +82,7 @@ unsigned decode_even_rodeh(string code)
     else if (code == "011")
         return 3;
     unsigned num = 3;
-    code = code.substr(0,code.size()-1); // Удаляем последний 0 pop_back() у string в с++11 нет
+    code = code.substr(0,code.size()-1); // РЈРґР°Р»СЏРµРј РїРѕСЃР»РµРґРЅРёР№ 0 pop_back() Сѓ string РІ СЃ++11 РЅРµС‚
     while (code.size())
     {
         string current_code = code.substr(0, num);

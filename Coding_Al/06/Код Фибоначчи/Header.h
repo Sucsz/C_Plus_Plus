@@ -5,9 +5,9 @@
 #include <cmath>
 using namespace std;
 
-// Сигнатуры функций
+// РЎРёРіРЅР°С‚СѓСЂС‹ С„СѓРЅРєС†РёР№
 vector<bool> to_fib(unsigned long long);
 string to_fib_code(unsigned long long);
 unsigned decode_fib_code(string);
-// Сигнатуры тестов
+// РЎРёРіРЅР°С‚СѓСЂС‹ С‚РµСЃС‚РѕРІ
 void loop_test();

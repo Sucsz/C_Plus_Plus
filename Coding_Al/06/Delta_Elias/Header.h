@@ -5,10 +5,10 @@
 #include <cmath>
 using namespace std;
 
-// Сигнатуры функций
+// РЎРёРіРЅР°С‚СѓСЂС‹ С„СѓРЅРєС†РёР№
 vector<bool> to_binary(unsigned);
 unsigned to_dec(string);
 string to_delta_elias(unsigned);
 unsigned decode_delta_elias(string);
-//Сигнатуры тестов
+//РЎРёРіРЅР°С‚СѓСЂС‹ С‚РµСЃС‚РѕРІ
 void loop_test();

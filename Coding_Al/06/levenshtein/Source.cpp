@@ -2,24 +2,24 @@
 
 int main()
 {
-    system("chcp 1251");  // Переходим на русский язык в консоли
+    system("chcp 1251");  // РџРµСЂРµС…РѕРґРёРј РЅР° СЂСѓСЃСЃРєРёР№ СЏР·С‹Рє РІ РєРѕРЅСЃРѕР»Рё
     system("cls");
     loop_test();
     unsigned input;
-    cout << "Введите целое неотрицательное число, которое вы желаете кодировать: \n\t\t";
+    cout << "Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ РЅРµРѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ, РєРѕС‚РѕСЂРѕРµ РІС‹ Р¶РµР»Р°РµС‚Рµ РєРѕРґРёСЂРѕРІР°С‚СЊ: \n\t\t";
     cin >> input;
-    cout << "\nЗакодированное сообщение:\n";
+    cout << "\nР—Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     string code = to_levenshtein(input);
     cout << "\t\t" << code << "\n\n";
-    cout << "Декодированное закодированное сообщение:\n";
+    cout << "Р”РµРєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ Р·Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     unsigned decode = decode_levenshtein(code);
     cout << "\t\t" << decode << "\n\n";
-    if (input == decode) cout << "Исходное сообщение совпало c декодированным!\n\n";
-    else cout << "Исходное сообщение не совпало c декодированным!\n\n";
+    if (input == decode) cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
+    else cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РЅРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
     system("pause");
 	return 0;
 }
-// Функция переводит число в двоичную систему счисления, после удаляет первую единицу.
+// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґРёС‚ С‡РёСЃР»Рѕ РІ РґРІРѕРёС‡РЅСѓСЋ СЃРёСЃС‚РµРјСѓ СЃС‡РёСЃР»РµРЅРёСЏ, РїРѕСЃР»Рµ СѓРґР°Р»СЏРµС‚ РїРµСЂРІСѓСЋ РµРґРёРЅРёС†Сѓ.
 vector<bool> to_binary_sub(unsigned num)
 {
     vector<bool> res;
@@ -28,10 +28,10 @@ vector<bool> to_binary_sub(unsigned num)
         res.push_back(num % 2);
         num /= 2;
     }
-    res.pop_back(); // Последний элемент - есть первый в двоичном представлении
+    res.pop_back(); // РџРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚ - РµСЃС‚СЊ РїРµСЂРІС‹Р№ РІ РґРІРѕРёС‡РЅРѕРј РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРё
     return res;
 }
-// Функция переводит число в десятичную систему счисления
+// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґРёС‚ С‡РёСЃР»Рѕ РІ РґРµСЃСЏС‚РёС‡РЅСѓСЋ СЃРёСЃС‚РµРјСѓ СЃС‡РёСЃР»РµРЅРёСЏ
 unsigned to_dec(string bin)
 {
     unsigned res = 0;
@@ -43,38 +43,38 @@ unsigned to_dec(string bin)
 }
 string to_levenshtein(unsigned num)
 {
-    // если кодировать числа выше 3999999999 декодировать функцией decode_levenshtein их не получится
+    // РµСЃР»Рё РєРѕРґРёСЂРѕРІР°С‚СЊ С‡РёСЃР»Р° РІС‹С€Рµ 3999999999 РґРµРєРѕРґРёСЂРѕРІР°С‚СЊ С„СѓРЅРєС†РёРµР№ decode_levenshtein РёС… РЅРµ РїРѕР»СѓС‡РёС‚СЃСЏ
     if (num == 0) return "0";
     vector <bool> bin_num = to_binary_sub(num);
-    vector <bool> code; // Вставляеть в начало кода bin' от num не нужно, т.к. цикл делает проход от исходного num
+    vector <bool> code; // Р’СЃС‚Р°РІР»СЏРµС‚СЊ РІ РЅР°С‡Р°Р»Рѕ РєРѕРґР° bin' РѕС‚ num РЅРµ РЅСѓР¶РЅРѕ, С‚.Рє. С†РёРєР» РґРµР»Р°РµС‚ РїСЂРѕС…РѕРґ РѕС‚ РёСЃС…РѕРґРЅРѕРіРѕ num
     vector <bool> copy_bin_num(bin_num);
     unsigned count = 1;
     while (copy_bin_num.size())
     {
         for (int counter = 0; counter < copy_bin_num.size(); counter++)
-            code.insert(code.begin(), copy_bin_num[counter]); // Вставляем в начало кода bin' от количества bin_num
+            code.insert(code.begin(), copy_bin_num[counter]); // Р’СЃС‚Р°РІР»СЏРµРј РІ РЅР°С‡Р°Р»Рѕ РєРѕРґР° bin' РѕС‚ РєРѕР»РёС‡РµСЃС‚РІР° bin_num
         copy_bin_num = to_binary_sub(copy_bin_num.size());
         count++;
     }
-    code.insert(code.begin(), false); // Вставляем  0 в начало;
-    for (int counter = count; counter > 0; counter--) // Вставляем count 1 в начало кода
+    code.insert(code.begin(), false); // Р’СЃС‚Р°РІР»СЏРµРј  0 РІ РЅР°С‡Р°Р»Рѕ;
+    for (int counter = count; counter > 0; counter--) // Р’СЃС‚Р°РІР»СЏРµРј count 1 РІ РЅР°С‡Р°Р»Рѕ РєРѕРґР°
         code.insert(code.begin(), true);
     string to_string;
-    for (int counter = 0; counter < code.size(); counter++)  // Переводим в строку
+    for (int counter = 0; counter < code.size(); counter++)  // РџРµСЂРµРІРѕРґРёРј РІ СЃС‚СЂРѕРєСѓ
         to_string += (int)code[counter] + '0';
     return to_string;
 }
 unsigned decode_levenshtein(string code)
 {
-    // декодирует до 11111000011111111111111111111111111111111111 включительно 3999999999
+    // РґРµРєРѕРґРёСЂСѓРµС‚ РґРѕ 11111000011111111111111111111111111111111111 РІРєР»СЋС‡РёС‚РµР»СЊРЅРѕ 3999999999
     if (code == "0") return 0;
-    unsigned c = 0; // Счетчик единиц
+    unsigned c = 0; // РЎС‡РµС‚С‡РёРє РµРґРёРЅРёС†
     while (code[0] != '0')
     {
         c++;
-        code.erase(code.begin()); // Очистили от 1
+        code.erase(code.begin()); // РћС‡РёСЃС‚РёР»Рё РѕС‚ 1
     }
-    code.erase(code.begin()); // Очистили от нуля
+    code.erase(code.begin()); // РћС‡РёСЃС‚РёР»Рё РѕС‚ РЅСѓР»СЏ
     unsigned n = 1;
     unsigned p = c - 1;
     string decode;

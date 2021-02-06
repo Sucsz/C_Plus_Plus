@@ -5,11 +5,11 @@
 #include <map>
 using namespace std;
 
-// Сигнатуры функций
+// РЎРёРіРЅР°С‚СѓСЂС‹ С„СѓРЅРєС†РёР№
 vector<vector<int>> to_lz78(string);
 void show_code(vector<vector<int>>);
 string decode_lz78(vector<vector<int>>);
-// Сигнатуры тестов
+// РЎРёРіРЅР°С‚СѓСЂС‹ С‚РµСЃС‚РѕРІ
 void test_1();
 void test_2();
 void test_3();

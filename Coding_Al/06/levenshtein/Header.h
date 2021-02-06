@@ -5,10 +5,10 @@
 #include <cmath>
 using namespace std;
 
-// Сигнатуры функций
+// РЎРёРіРЅР°С‚СѓСЂС‹ С„СѓРЅРєС†РёР№
 vector<bool> to_binary_sub(unsigned);
 unsigned to_dec(string);
 string to_levenshtein(unsigned);
 unsigned decode_levenshtein(string);
-// Сигнатуры тестов
+// РЎРёРіРЅР°С‚СѓСЂС‹ С‚РµСЃС‚РѕРІ
 void loop_test();

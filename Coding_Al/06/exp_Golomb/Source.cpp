@@ -1,28 +1,28 @@
-// 5 минут
+// 5 РјРёРЅСѓС‚
 #include "Header.h"
 
 int main()
 {
-    system("chcp 1251");  // Переходим на русский язык в консоли
+    system("chcp 1251");  // РџРµСЂРµС…РѕРґРёРј РЅР° СЂСѓСЃСЃРєРёР№ СЏР·С‹Рє РІ РєРѕРЅСЃРѕР»Рё
     system("cls");
     loop_test();
     unsigned input, param;
-    cout << "Введите целое положительное число, которое вы желаете кодировать: \n\t\t";
+    cout << "Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ, РєРѕС‚РѕСЂРѕРµ РІС‹ Р¶РµР»Р°РµС‚Рµ РєРѕРґРёСЂРѕРІР°С‚СЊ: \n\t\t";
     cin >> input;
-    cout << "Введите цело положителльное число, параметр Экспоненциального кода Голомба\n\t\t";
+    cout << "Р’РІРµРґРёС‚Рµ С†РµР»Рѕ РїРѕР»РѕР¶РёС‚РµР»Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ, РїР°СЂР°РјРµС‚СЂ Р­РєСЃРїРѕРЅРµРЅС†РёР°Р»СЊРЅРѕРіРѕ РєРѕРґР° Р“РѕР»РѕРјР±Р°\n\t\t";
     cin >> param;
-    cout << "\nЗакодированное сообщение:\n";
+    cout << "\nР—Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     string code = to_exp_golomb(input, param);
     cout << "\t\t" << code << "\n\n";
-    cout << "Декодированное закодированное сообщение:\n";
+    cout << "Р”РµРєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ Р·Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     unsigned decode = decode_exp_golomb(code, param);
     cout << "\t\t" << decode << "\n\n";
-    if (input == decode) cout << "Исходное сообщение совпало c декодированным!\n\n";
-    else cout << "Исходное сообщение не совпало c декодированным!\n\n";
+    if (input == decode) cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
+    else cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РЅРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
     //system("pause");
     return 0;
 }
-// Функция переводит число в двоичную систему счисления
+// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґРёС‚ С‡РёСЃР»Рѕ РІ РґРІРѕРёС‡РЅСѓСЋ СЃРёСЃС‚РµРјСѓ СЃС‡РёСЃР»РµРЅРёСЏ
 vector<bool> to_binary(unsigned num)
 {
     vector<bool> res;
@@ -33,7 +33,7 @@ vector<bool> to_binary(unsigned num)
     }
     return res;
 }
-// Функция переводит число в десятичную систему счисления
+// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґРёС‚ С‡РёСЃР»Рѕ РІ РґРµСЃСЏС‚РёС‡РЅСѓСЋ СЃРёСЃС‚РµРјСѓ СЃС‡РёСЃР»РµРЅРёСЏ
 unsigned to_dec(string bin)
 {
     unsigned res = 0;
@@ -52,21 +52,21 @@ string to_exp_golomb(unsigned num, unsigned param)
     int f = floor(log2(1 + num / pow(2, param)));
     for (int counter = 0; counter < f; counter++)
         code.push_back(true);
-    code.push_back(false); // Записали унарное предстваление f
+    code.push_back(false); // Р—Р°РїРёСЃР°Р»Рё СѓРЅР°СЂРЅРѕРµ РїСЂРµРґСЃС‚РІР°Р»РµРЅРёРµ f
     vector <bool> bin_w = to_binary(w);
-    bin_w.resize(f); // Ограничиваем количество битов до f
-    for (int counter = bin_w.size() - 1; counter >= 0; counter--) // Дописываем биты
+    bin_w.resize(f); // РћРіСЂР°РЅРёС‡РёРІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ Р±РёС‚РѕРІ РґРѕ f
+    for (int counter = bin_w.size() - 1; counter >= 0; counter--) // Р”РѕРїРёСЃС‹РІР°РµРј Р±РёС‚С‹
         code.push_back(bin_w[counter]);
-    // Доиписываем справа бинарный код num
-    // Который занимает k бит
-    bin_num.resize(param); //Ограничиваем количество битов до param
+    // Р”РѕРёРїРёСЃС‹РІР°РµРј СЃРїСЂР°РІР° Р±РёРЅР°СЂРЅС‹Р№ РєРѕРґ num
+    // РљРѕС‚РѕСЂС‹Р№ Р·Р°РЅРёРјР°РµС‚ k Р±РёС‚
+    bin_num.resize(param); //РћРіСЂР°РЅРёС‡РёРІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ Р±РёС‚РѕРІ РґРѕ param
     for (int counter = bin_num.size() - 1; counter >= 0; counter--)
         code.push_back(bin_num[counter]);
-    for (int counter = 0; counter < code.size(); counter++)      // Переводим в строку
+    for (int counter = 0; counter < code.size(); counter++)      // РџРµСЂРµРІРѕРґРёРј РІ СЃС‚СЂРѕРєСѓ
         to_string += (int)code[counter] + '0';
     return to_string;
 }
-// Перевод Экспоненциального кода Голомба в десятичное представление
+// РџРµСЂРµРІРѕРґ Р­РєСЃРїРѕРЅРµРЅС†РёР°Р»СЊРЅРѕРіРѕ РєРѕРґР° Р“РѕР»РѕРјР±Р° РІ РґРµСЃСЏС‚РёС‡РЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ
 unsigned decode_exp_golomb(string code, unsigned param)
 {
     string decode;
@@ -79,41 +79,41 @@ unsigned decode_exp_golomb(string code, unsigned param)
     }
     int unar_f = 0;
     string w;
-    // Иначе
+    // РРЅР°С‡Рµ
     while (code[0] != '0')
     {
         unar_f++;
         code.erase(code.begin());
     }
-    code.erase(code.begin()); // Избавились от унарного представления f
-    w += '1'; // Добавляем слева 1
+    code.erase(code.begin()); // РР·Р±Р°РІРёР»РёСЃСЊ РѕС‚ СѓРЅР°СЂРЅРѕРіРѕ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ f
+    w += '1'; // Р”РѕР±Р°РІР»СЏРµРј СЃР»РµРІР° 1
     int temp = 0;
     for (int counter = 0; counter < unar_f; counter++)
     {
         temp++;
         w += code[counter];
     }
-    for (int counter = 0; counter < temp; counter++) // Избавились от ранее прочитанных битов
+    for (int counter = 0; counter < temp; counter++) // РР·Р±Р°РІРёР»РёСЃСЊ РѕС‚ СЂР°РЅРµРµ РїСЂРѕС‡РёС‚Р°РЅРЅС‹С… Р±РёС‚РѕРІ
     {
         code.erase(code.begin());
     }
     unsigned num_w = to_dec(w);
     num_w -= 1;
     num_w = num_w << param;
-    vector <bool> n_l; // Младшие биты числа n
-    for (int counter = 0; counter < param; counter++) // Читаем param битов исходного числа
+    vector <bool> n_l; // РњР»Р°РґС€РёРµ Р±РёС‚С‹ С‡РёСЃР»Р° n
+    for (int counter = 0; counter < param; counter++) // Р§РёС‚Р°РµРј param Р±РёС‚РѕРІ РёСЃС…РѕРґРЅРѕРіРѕ С‡РёСЃР»Р°
     {
         n_l.push_back((code[counter]) - '0');
     }
     vector <bool> w_bin = to_binary(num_w);
     unsigned res = 0;
     string to_string;
-    for (int counter = w_bin.size() - 1; counter >= 0; counter--)      // Переводим в строку
+    for (int counter = w_bin.size() - 1; counter >= 0; counter--)      // РџРµСЂРµРІРѕРґРёРј РІ СЃС‚СЂРѕРєСѓ
         to_string += (int)w_bin[counter] + '0';
 
     res += to_dec(to_string);
     to_string = "";
-    for (int counter = 0; counter < n_l.size(); counter++)      // Переводим в строку
+    for (int counter = 0; counter < n_l.size(); counter++)      // РџРµСЂРµРІРѕРґРёРј РІ СЃС‚СЂРѕРєСѓ
         to_string += (int)n_l[counter] + '0';
     res += to_dec(to_string);
     return(res);

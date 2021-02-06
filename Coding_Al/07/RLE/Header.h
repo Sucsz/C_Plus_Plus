@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-// Сигнатуры функций
+// РЎРёРіРЅР°С‚СѓСЂС‹ С„СѓРЅРєС†РёР№
 vector<pair<int, char> > to_rle(string);
 void show_code(vector<pair<int, char> >);
 string decode_rle(vector<pair<int, char> >);

@@ -5,10 +5,10 @@
 #include <cmath>
 using namespace std;
 
-// Сигнатуры функций
+// РЎРёРіРЅР°С‚СѓСЂС‹ С„СѓРЅРєС†РёР№
 vector<bool> to_binary(unsigned);
 unsigned to_dec(string);
 string to_rayas(unsigned, unsigned);
 unsigned decode_rayas(string, unsigned);
-//Сигнатуры тестов
+//РЎРёРіРЅР°С‚СѓСЂС‹ С‚РµСЃС‚РѕРІ
 void loop_test();

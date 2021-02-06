@@ -1,10 +1,10 @@
 /*
-Общее время выполнения работы ~10 часов
+РћР±С‰РµРµ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ СЂР°Р±РѕС‚С‹ ~10 С‡Р°СЃРѕРІ
  
-Работа выполнена студентом 3 курса ИИТО ИСиТ
-   Семыкиным В.В.
+Р Р°Р±РѕС‚Р° РІС‹РїРѕР»РЅРµРЅР° СЃС‚СѓРґРµРЅС‚РѕРј 3 РєСѓСЂСЃР° РРРўРћ РРЎРёРў
+   РЎРµРјС‹РєРёРЅС‹Рј Р’.Р’.
 
-Данная программа реализует алгоритм построения кодов Шеннона-Фано, кодирование заданного сообщение, декодирование.
+Р”Р°РЅРЅР°СЏ РїСЂРѕРіСЂР°РјРјР° СЂРµР°Р»РёР·СѓРµС‚ Р°Р»РіРѕСЂРёС‚Рј РїРѕСЃС‚СЂРѕРµРЅРёСЏ РєРѕРґРѕРІ РЁРµРЅРЅРѕРЅР°-Р¤Р°РЅРѕ, РєРѕРґРёСЂРѕРІР°РЅРёРµ Р·Р°РґР°РЅРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёРµ, РґРµРєРѕРґРёСЂРѕРІР°РЅРёРµ.
 
 */
 #include <iostream>
@@ -15,7 +15,7 @@
 #include <cmath>
 using namespace std;
 
-// Сигнатуры функций
+// РЎРёРіРЅР°С‚СѓСЂС‹ С„СѓРЅРєС†РёР№
 vector <pair <char, double> > frequency_analysis(string);
 void out_table(vector <pair<char, double> >);
 vector <pair <char, double> > sort_vector_desc(vector <pair <char, double> >);
@@ -28,14 +28,14 @@ pair <vector <pair<char, string> >, string> encoding_to_code(string, vector<pair
 pair <vector <pair<char, string> >, string> decoding_to_decode(pair <vector <pair<char, string> >, string>);
 void efficiency_coefficient(string input, pair <vector <pair<char, string> >, string>);
 
-//Сигнатуры тестов
-void tests_encode(); // Кодирование
+//РЎРёРіРЅР°С‚СѓСЂС‹ С‚РµСЃС‚РѕРІ
+void tests_encode(); // РљРѕРґРёСЂРѕРІР°РЅРёРµ
 void test_encode_1();
 void test_encode_2();
 void test_encode_3();
 void test_encode_4();
 void test_encode_5();
-void tests_decode(); // Декодирование
+void tests_decode(); // Р”РµРєРѕРґРёСЂРѕРІР°РЅРёРµ
 void test_decode_1();
 void test_decode_2();
 void test_decode_3();
@@ -44,31 +44,31 @@ void test_decode_5();
 
 int main()
 {
-	system("chcp 1251");  // Переходим на русский язык в консоли
+	system("chcp 1251");  // РџРµСЂРµС…РѕРґРёРј РЅР° СЂСѓСЃСЃРєРёР№ СЏР·С‹Рє РІ РєРѕРЅСЃРѕР»Рё
 	system("cls");
-	cout << "Тесты кодирования:\n";
+	cout << "РўРµСЃС‚С‹ РєРѕРґРёСЂРѕРІР°РЅРёСЏ:\n";
 	cout << "---------------------------------------------------------------------------------------------------------";
 	tests_encode();
 	cout << "---------------------------------------------------------------------------------------------------------\n";
-	cout << "\nТесты декодирования\n\n";
+	cout << "\nРўРµСЃС‚С‹ РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ\n\n";
 	cout << "---------------------------------------------------------------------------------------------------------\n";
 	tests_decode();
 	cout << "---------------------------------------------------------------------------------------------------------\n";
-	cout << "\t\t\t\t\tЗАПУСК СЦЕНАРИЯ:\n\n"; // Сценарий по факту loop-test в начале кодируем, потом декодируем полученное
+	cout << "\t\t\t\t\tР—РђРџРЈРЎРљ РЎР¦Р•РќРђР РРЇ:\n\n"; // РЎС†РµРЅР°СЂРёР№ РїРѕ С„Р°РєС‚Сѓ loop-test РІ РЅР°С‡Р°Р»Рµ РєРѕРґРёСЂСѓРµРј, РїРѕС‚РѕРј РґРµРєРѕРґРёСЂСѓРµРј РїРѕР»СѓС‡РµРЅРЅРѕРµ
 	string input;
-	cout << "Введите сообщение, которое вы желаете кодировать: ";
+	cout << "Р’РІРµРґРёС‚Рµ СЃРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ РІС‹ Р¶РµР»Р°РµС‚Рµ РєРѕРґРёСЂРѕРІР°С‚СЊ: ";
 	getline(cin, input);
-	vector <pair <char, double> > freq_table = frequency_analysis(input); // "Таблица" символ-вероятность 
-	cout << "\nПолучившейся таблица вероятностей символов: \n";
+	vector <pair <char, double> > freq_table = frequency_analysis(input); // "РўР°Р±Р»РёС†Р°" СЃРёРјРІРѕР»-РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ 
+	cout << "\nРџРѕР»СѓС‡РёРІС€РµР№СЃСЏ С‚Р°Р±Р»РёС†Р° РІРµСЂРѕСЏС‚РЅРѕСЃС‚РµР№ СЃРёРјРІРѕР»РѕРІ: \n";
 	out_table(freq_table);
 	vector <pair <char, double> > freq_desc = sort_vector_desc(freq_table);
-	cout << "\nОтсортированная по убыванию таблица: \n";
+	cout << "\nРћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅР°СЏ РїРѕ СѓР±С‹РІР°РЅРёСЋ С‚Р°Р±Р»РёС†Р°: \n";
 	out_table(freq_desc);
 	vector<double> sum_freq = sum_frequencies(freq_desc);
-	cout << "\nКумулятивные вероятности: \n";
+	cout << "\nРљСѓРјСѓР»СЏС‚РёРІРЅС‹Рµ РІРµСЂРѕСЏС‚РЅРѕСЃС‚Рё: \n";
 	out_vector(sum_freq);
 	vector<pair<char, string> > sh_f_codes = to_sh_f(freq_desc, sum_freq);
-	cout << "\nТаблица символ  - код: \n";
+	cout << "\nРўР°Р±Р»РёС†Р° СЃРёРјРІРѕР»  - РєРѕРґ: \n";
 	out_codes_table(sh_f_codes);
 	bool is_prefix = check_prefix(sh_f_codes);
 	pair <vector <pair<char, string> >, string> tables_code_and_code;
@@ -76,20 +76,20 @@ int main()
 	if (is_prefix)
 	{
 		tables_code_and_code = encoding_to_code(input, sh_f_codes);
-		cout << "\nИсходное сообщение: \n" << input << "\n\nЗакодированное сообщение\n" << tables_code_and_code.second;
-		cout << "\n\nДекодинг кода в исходное сообщение:\n";
+		cout << "\nРСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ: \n" << input << "\n\nР—Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ\n" << tables_code_and_code.second;
+		cout << "\n\nР”РµРєРѕРґРёРЅРі РєРѕРґР° РІ РёСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
 		tables_code_and_decode = decoding_to_decode(tables_code_and_code);
-		cout << "Исходное сообщение: \n" << tables_code_and_decode.second << "\n\n";
+		cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ: \n" << tables_code_and_decode.second << "\n\n";
 		if (tables_code_and_decode.second == input)
 		{
-			cout << "Исходная строка совпала с декодированной!\n\n";
+			cout << "РСЃС…РѕРґРЅР°СЏ СЃС‚СЂРѕРєР° СЃРѕРІРїР°Р»Р° СЃ РґРµРєРѕРґРёСЂРѕРІР°РЅРЅРѕР№!\n\n";
 		}
 		else
 		{
 			return -2;
 		}
 	}
-	else // Код не префиксный
+	else // РљРѕРґ РЅРµ РїСЂРµС„РёРєСЃРЅС‹Р№
 	{
 		return -1;
 	}
@@ -98,44 +98,44 @@ int main()
 	return 0;
 }
 
-// Частотный анализ
+// Р§Р°СЃС‚РѕС‚РЅС‹Р№ Р°РЅР°Р»РёР·
 vector <pair <char, double> > frequency_analysis(string input)
 {
 	/*
-	Функция, реализующая частотный анализ заданной строки. Результатом набор пар ключ-значение, где ключ - буква,
-	Значение - вероятность встретить букву в передаваемом сообщении.
+	Р¤СѓРЅРєС†РёСЏ, СЂРµР°Р»РёР·СѓСЋС‰Р°СЏ С‡Р°СЃС‚РѕС‚РЅС‹Р№ Р°РЅР°Р»РёР· Р·Р°РґР°РЅРЅРѕР№ СЃС‚СЂРѕРєРё. Р РµР·СѓР»СЊС‚Р°С‚РѕРј РЅР°Р±РѕСЂ РїР°СЂ РєР»СЋС‡-Р·РЅР°С‡РµРЅРёРµ, РіРґРµ РєР»СЋС‡ - Р±СѓРєРІР°,
+	Р—РЅР°С‡РµРЅРёРµ - РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РІСЃС‚СЂРµС‚РёС‚СЊ Р±СѓРєРІСѓ РІ РїРµСЂРµРґР°РІР°РµРјРѕРј СЃРѕРѕР±С‰РµРЅРёРё.
 	*/
 	vector <pair <char, double> > freq_table;
 
-	for (int counter = 0; counter < input.size(); counter++) //Проходем по каждому символу в слове
+	for (int counter = 0; counter < input.size(); counter++) //РџСЂРѕС…РѕРґРµРј РїРѕ РєР°Р¶РґРѕРјСѓ СЃРёРјРІРѕР»Сѓ РІ СЃР»РѕРІРµ
 	{
-		//считаем количество букв
+		//СЃС‡РёС‚Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ Р±СѓРєРІ
 		for (int counter2 = 0; counter2 < freq_table.size(); counter2++)
 		{
-			if (freq_table[counter2].first == input[counter]) // Сравниваем его с имеющимися символами в "Таблице"
+			if (freq_table[counter2].first == input[counter]) // РЎСЂР°РІРЅРёРІР°РµРј РµРіРѕ СЃ РёРјРµСЋС‰РёРјРёСЃСЏ СЃРёРјРІРѕР»Р°РјРё РІ "РўР°Р±Р»РёС†Рµ"
 			{
-				freq_table[counter2].second += 1.0 / input.size(); // Если совпали, увличиваем вероятность
+				freq_table[counter2].second += 1.0 / input.size(); // Р•СЃР»Рё СЃРѕРІРїР°Р»Рё, СѓРІР»РёС‡РёРІР°РµРј РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ
 				goto out_label;
 			}
 		}
 		freq_table.push_back(pair<char, double>(input[counter], 1.0 / input.size()));
-		// К сожеланию приходиться добавлять goto, вместо else, иначе не добавится первый элемент и второй цикл не будет работать. 
+		// Рљ СЃРѕР¶РµР»Р°РЅРёСЋ РїСЂРёС…РѕРґРёС‚СЊСЃСЏ РґРѕР±Р°РІР»СЏС‚СЊ goto, РІРјРµСЃС‚Рѕ else, РёРЅР°С‡Рµ РЅРµ РґРѕР±Р°РІРёС‚СЃСЏ РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ Рё РІС‚РѕСЂРѕР№ С†РёРєР» РЅРµ Р±СѓРґРµС‚ СЂР°Р±РѕС‚Р°С‚СЊ. 
 		out_label:;
 	}
 	return freq_table;
 }
 
-// Вывод "таблицы" на экран
+// Р’С‹РІРѕРґ "С‚Р°Р±Р»РёС†С‹" РЅР° СЌРєСЂР°РЅ
 void out_table(vector <pair <char, double> > container)
 {
 	int size = container.size();
 	for (int counter = 0; counter < size; counter++)
 	{
-		cout << "Ключ: " << container[counter].first << "\tЗначение: " << container[counter].second <<'\n';
+		cout << "РљР»СЋС‡: " << container[counter].first << "\tР—РЅР°С‡РµРЅРёРµ: " << container[counter].second <<'\n';
 	}
 }
 
-//Сортировка вектора по убыванию частот
+//РЎРѕСЂС‚РёСЂРѕРІРєР° РІРµРєС‚РѕСЂР° РїРѕ СѓР±С‹РІР°РЅРёСЋ С‡Р°СЃС‚РѕС‚
 vector <pair <char, double> > sort_vector_desc(vector <pair <char, double> > freq_table)
 {
 	int size = freq_table.size();
@@ -155,7 +155,7 @@ vector <pair <char, double> > sort_vector_desc(vector <pair <char, double> > fre
 	return freq_table;
 }
 
-//Образование возрастающих сумм частот q
+//РћР±СЂР°Р·РѕРІР°РЅРёРµ РІРѕР·СЂР°СЃС‚Р°СЋС‰РёС… СЃСѓРјРј С‡Р°СЃС‚РѕС‚ q
 vector<double> sum_frequencies(vector <pair <char, double> > freq_table)
 {
 	vector<double> sum_freq;
@@ -168,28 +168,28 @@ vector<double> sum_frequencies(vector <pair <char, double> > freq_table)
 	return sum_freq;
 }
 
-// Вывод вектора на экран
+// Р’С‹РІРѕРґ РІРµРєС‚РѕСЂР° РЅР° СЌРєСЂР°РЅ
 void out_vector(vector<double> container)
 {
 	int size = container.size();
 	for (int counter = 0; counter < size; counter++)
 	{
-		cout << "Значение: " << container[counter]<< '\n';
+		cout << "Р—РЅР°С‡РµРЅРёРµ: " << container[counter]<< '\n';
 	}
 }
 
 
-// Образование кодов символов
+// РћР±СЂР°Р·РѕРІР°РЅРёРµ РєРѕРґРѕРІ СЃРёРјРІРѕР»РѕРІ
 vector <pair<char, string> > to_sh_f(vector <pair <char, double> > freq_table, vector<double> sum_freq)
 {
-	// Массив кодовых слов
+	// РњР°СЃСЃРёРІ РєРѕРґРѕРІС‹С… СЃР»РѕРІ
 	vector<pair<char, string> > codes;
 	int size = freq_table.size();
-	for (int counter = 0; counter < size; counter++) //Для каждой комулятивной вероятности
+	for (int counter = 0; counter < size; counter++) //Р”Р»СЏ РєР°Р¶РґРѕР№ РєРѕРјСѓР»СЏС‚РёРІРЅРѕР№ РІРµСЂРѕСЏС‚РЅРѕСЃС‚Рё
 	{
-		vector<int> code; // Под одной буквы
-		// Переводим вещественные числа в двоичную систему
-		int number_char = ceil(-log2(freq_table[counter].second)); // Ограничение знаков двоичного числа
+		vector<int> code; // РџРѕРґ РѕРґРЅРѕР№ Р±СѓРєРІС‹
+		// РџРµСЂРµРІРѕРґРёРј РІРµС‰РµСЃС‚РІРµРЅРЅС‹Рµ С‡РёСЃР»Р° РІ РґРІРѕРёС‡РЅСѓСЋ СЃРёСЃС‚РµРјСѓ
+		int number_char = ceil(-log2(freq_table[counter].second)); // РћРіСЂР°РЅРёС‡РµРЅРёРµ Р·РЅР°РєРѕРІ РґРІРѕРёС‡РЅРѕРіРѕ С‡РёСЃР»Р°
 		for (int counter2 = 0; counter2 < number_char; counter2++)
 		{
 			sum_freq[counter] *= 2;
@@ -199,7 +199,7 @@ vector <pair<char, string> > to_sh_f(vector <pair <char, double> > freq_table, v
 				sum_freq[counter]--;
 			}
 		}
-		// Переводим в строку
+		// РџРµСЂРµРІРѕРґРёРј РІ СЃС‚СЂРѕРєСѓ
 		string result;
 		for (int counter2 = 0; counter2 < code.size(); counter2++)
 		{
@@ -210,29 +210,29 @@ vector <pair<char, string> > to_sh_f(vector <pair <char, double> > freq_table, v
 	return codes;
 }
 
-// Вывод таблицы кодов на экран 
+// Р’С‹РІРѕРґ С‚Р°Р±Р»РёС†С‹ РєРѕРґРѕРІ РЅР° СЌРєСЂР°РЅ 
 void out_codes_table(vector<pair<char, string> > shf)
 {
 	int size = shf.size();
 	for (int counter = 0; counter < size; counter++)
 	{
-		cout << "Символ: " << shf[counter].first << "\tКод: " << shf[counter].second << '\n';
+		cout << "РЎРёРјРІРѕР»: " << shf[counter].first << "\tРљРѕРґ: " << shf[counter].second << '\n';
 	}
 }
 
-// Проверка префиксности получившихся кодов
+// РџСЂРѕРІРµСЂРєР° РїСЂРµС„РёРєСЃРЅРѕСЃС‚Рё РїРѕР»СѓС‡РёРІС€РёС…СЃСЏ РєРѕРґРѕРІ
 bool check_prefix(vector<pair<char, string> > codes)
 {
 	int size = codes.size();
-	for (int counter = 0; counter < size; counter++) // Проход по всем кодам
+	for (int counter = 0; counter < size; counter++) // РџСЂРѕС…РѕРґ РїРѕ РІСЃРµРј РєРѕРґР°Рј
 	{
-		for (int counter2 = counter + 1; counter2 < size; counter2++) // Проход по всем кодам, которые следует после нынешнего 
+		for (int counter2 = counter + 1; counter2 < size; counter2++) // РџСЂРѕС…РѕРґ РїРѕ РІСЃРµРј РєРѕРґР°Рј, РєРѕС‚РѕСЂС‹Рµ СЃР»РµРґСѓРµС‚ РїРѕСЃР»Рµ РЅС‹РЅРµС€РЅРµРіРѕ 
 		{
-			bool flag = false; // Индикатор совпадения кодов, если они не совпали меняем значение на false
-			for (int counter3 = 0; counter3 < codes[counter].second.size(); counter3++) // Проход по буквам текущих сравниваемых кодов 
+			bool flag = false; // РРЅРґРёРєР°С‚РѕСЂ СЃРѕРІРїР°РґРµРЅРёСЏ РєРѕРґРѕРІ, РµСЃР»Рё РѕРЅРё РЅРµ СЃРѕРІРїР°Р»Рё РјРµРЅСЏРµРј Р·РЅР°С‡РµРЅРёРµ РЅР° false
+			for (int counter3 = 0; counter3 < codes[counter].second.size(); counter3++) // РџСЂРѕС…РѕРґ РїРѕ Р±СѓРєРІР°Рј С‚РµРєСѓС‰РёС… СЃСЂР°РІРЅРёРІР°РµРјС‹С… РєРѕРґРѕРІ 
 			{
 				/*
-				Здесь не возникает проблемы выхода за границы массива-кода, тк изначально сортировка по неубыванию
+				Р—РґРµСЃСЊ РЅРµ РІРѕР·РЅРёРєР°РµС‚ РїСЂРѕР±Р»РµРјС‹ РІС‹С…РѕРґР° Р·Р° РіСЂР°РЅРёС†С‹ РјР°СЃСЃРёРІР°-РєРѕРґР°, С‚Рє РёР·РЅР°С‡Р°Р»СЊРЅРѕ СЃРѕСЂС‚РёСЂРѕРІРєР° РїРѕ РЅРµСѓР±С‹РІР°РЅРёСЋ
 				*/
 				if (codes[counter].second[counter3] != codes[counter2].second[counter3])
 				{
@@ -241,25 +241,25 @@ bool check_prefix(vector<pair<char, string> > codes)
 			}
 			if (!flag)
 			{
-				cout << "\nДанная таблица кодов не является префиксной\n";
+				cout << "\nР”Р°РЅРЅР°СЏ С‚Р°Р±Р»РёС†Р° РєРѕРґРѕРІ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РїСЂРµС„РёРєСЃРЅРѕР№\n";
 				return false;
 			}
 		}
 	}
-	cout << "\nДанная таблица кодов является префиксной\n";
+	cout << "\nР”Р°РЅРЅР°СЏ С‚Р°Р±Р»РёС†Р° РєРѕРґРѕРІ СЏРІР»СЏРµС‚СЃСЏ РїСЂРµС„РёРєСЃРЅРѕР№\n";
 	return true;
 }
 
-// Функция, кодирующая исходное сообщение, принимает исходную таблицу кодов и сообщение, возвращает исходную таблицу кодов и закодированное сообщение. 
+// Р¤СѓРЅРєС†РёСЏ, РєРѕРґРёСЂСѓСЋС‰Р°СЏ РёСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ, РїСЂРёРЅРёРјР°РµС‚ РёСЃС…РѕРґРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ РєРѕРґРѕРІ Рё СЃРѕРѕР±С‰РµРЅРёРµ, РІРѕР·РІСЂР°С‰Р°РµС‚ РёСЃС…РѕРґРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ РєРѕРґРѕРІ Рё Р·Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ. 
 pair <vector <pair<char, string> >, string> encoding_to_code(string input, vector<pair<char, string> > sh_f_codes)
 {
 	int size = input.size();
 	int size_table = sh_f_codes.size();
 	pair <vector <pair<char, string> >, string> table_codes_and_code;
 	table_codes_and_code.first = sh_f_codes;
-	for (int count = 0; count < size; count++) // Для каждой буквы исходной строки
+	for (int count = 0; count < size; count++) // Р”Р»СЏ РєР°Р¶РґРѕР№ Р±СѓРєРІС‹ РёСЃС…РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё
 	{
-		for (int count2 = 0; count2 < size_table; count2++) // Рассматриваем все кодовые слова, пока не встретится необходимый код
+		for (int count2 = 0; count2 < size_table; count2++) // Р Р°СЃСЃРјР°С‚СЂРёРІР°РµРј РІСЃРµ РєРѕРґРѕРІС‹Рµ СЃР»РѕРІР°, РїРѕРєР° РЅРµ РІСЃС‚СЂРµС‚РёС‚СЃСЏ РЅРµРѕР±С…РѕРґРёРјС‹Р№ РєРѕРґ
 		{
 			if (input[count] == sh_f_codes[count2].first)
 			{
@@ -271,7 +271,7 @@ pair <vector <pair<char, string> >, string> encoding_to_code(string input, vecto
 	return(table_codes_and_code);
 }
 
-// Функция, декодирующая исходное сообщение, принимает исходную таблицу кодов и сообщение, возвращает исходную таблицу кодов и декодированное сообщение. 
+// Р¤СѓРЅРєС†РёСЏ, РґРµРєРѕРґРёСЂСѓСЋС‰Р°СЏ РёСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ, РїСЂРёРЅРёРјР°РµС‚ РёСЃС…РѕРґРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ РєРѕРґРѕРІ Рё СЃРѕРѕР±С‰РµРЅРёРµ, РІРѕР·РІСЂР°С‰Р°РµС‚ РёСЃС…РѕРґРЅСѓСЋ С‚Р°Р±Р»РёС†Сѓ РєРѕРґРѕРІ Рё РґРµРєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ. 
 pair <vector <pair<char, string> >, string> decoding_to_decode(pair <vector <pair<char, string> >, string> table_codes_and_code)
 {
 	int code_size = table_codes_and_code.second.size();
@@ -279,16 +279,16 @@ pair <vector <pair<char, string> >, string> decoding_to_decode(pair <vector <pai
 	pair <vector <pair<char, string> >, string> table_codes_and_decode;
 	table_codes_and_decode.first = table_codes_and_code.first;
 	string code;
-	for (int count = 0; count < code_size; count++) // Для каждой цифры исходной строки будем формировать кодовое слово, и проверять его на соответсвие таблице кодов, если не нашли
-													// То увеличиваем кодовое слово, добавляяя следующую цифру.
+	for (int count = 0; count < code_size; count++) // Р”Р»СЏ РєР°Р¶РґРѕР№ С†РёС„СЂС‹ РёСЃС…РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё Р±СѓРґРµРј С„РѕСЂРјРёСЂРѕРІР°С‚СЊ РєРѕРґРѕРІРѕРµ СЃР»РѕРІРѕ, Рё РїСЂРѕРІРµСЂСЏС‚СЊ РµРіРѕ РЅР° СЃРѕРѕС‚РІРµС‚СЃРІРёРµ С‚Р°Р±Р»РёС†Рµ РєРѕРґРѕРІ, РµСЃР»Рё РЅРµ РЅР°С€Р»Рё
+													// РўРѕ СѓРІРµР»РёС‡РёРІР°РµРј РєРѕРґРѕРІРѕРµ СЃР»РѕРІРѕ, РґРѕР±Р°РІР»СЏСЏСЏ СЃР»РµРґСѓСЋС‰СѓСЋ С†РёС„СЂСѓ.
 	{
 		code += table_codes_and_code.second[count];
-		for (int count2 = 0; count2 < size_table; count2++) // Рассматриваем все кодовые слова, пока не встретится необходимый код
+		for (int count2 = 0; count2 < size_table; count2++) // Р Р°СЃСЃРјР°С‚СЂРёРІР°РµРј РІСЃРµ РєРѕРґРѕРІС‹Рµ СЃР»РѕРІР°, РїРѕРєР° РЅРµ РІСЃС‚СЂРµС‚РёС‚СЃСЏ РЅРµРѕР±С…РѕРґРёРјС‹Р№ РєРѕРґ
 		{
 			if (code == table_codes_and_decode.first[count2].second)
 			{
 				table_codes_and_decode.second += table_codes_and_decode.first[count2].first;
-				code = ""; // Если подходящее кодовое слово найдено, добавляем в декод символ, хранящийся под этим кодом и обнуляем код.
+				code = ""; // Р•СЃР»Рё РїРѕРґС…РѕРґСЏС‰РµРµ РєРѕРґРѕРІРѕРµ СЃР»РѕРІРѕ РЅР°Р№РґРµРЅРѕ, РґРѕР±Р°РІР»СЏРµРј РІ РґРµРєРѕРґ СЃРёРјРІРѕР», С…СЂР°РЅСЏС‰РёР№СЃСЏ РїРѕРґ СЌС‚РёРј РєРѕРґРѕРј Рё РѕР±РЅСѓР»СЏРµРј РєРѕРґ.
 				break;
 			}
 		}
@@ -296,16 +296,16 @@ pair <vector <pair<char, string> >, string> decoding_to_decode(pair <vector <pai
 	return(table_codes_and_decode);
 }
 
-// Функция, вычисляющая степень сжатия
+// Р¤СѓРЅРєС†РёСЏ, РІС‹С‡РёСЃР»СЏСЋС‰Р°СЏ СЃС‚РµРїРµРЅСЊ СЃР¶Р°С‚РёСЏ
 void efficiency_coefficient(string input, pair <vector <pair<char, string> >, string> tables_code_and_code)
 {
 	double size_input = input.size();
 	double size_code = tables_code_and_code.second.size();
-	cout << "Сжатие исходного сообщения с помощью данного кодирования для данного сообщения составило:\n" << size_input * 8 / size_code << "\n\n\n";
+	cout << "РЎР¶Р°С‚РёРµ РёСЃС…РѕРґРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ СЃ РїРѕРјРѕС‰СЊСЋ РґР°РЅРЅРѕРіРѕ РєРѕРґРёСЂРѕРІР°РЅРёСЏ РґР»СЏ РґР°РЅРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ СЃРѕСЃС‚Р°РІРёР»Рѕ:\n" << size_input * 8 / size_code << "\n\n\n";
 }
 
 
-void tests_encode() // Функция объединяющая тесты кодирования
+void tests_encode() // Р¤СѓРЅРєС†РёСЏ РѕР±СЉРµРґРёРЅСЏСЋС‰Р°СЏ С‚РµСЃС‚С‹ РєРѕРґРёСЂРѕРІР°РЅРёСЏ
 {
 	test_encode_1();
 	test_encode_2();
@@ -315,12 +315,12 @@ void tests_encode() // Функция объединяющая тесты кодирования
 }
 void test_encode_1()
 {
-	string text = "string"; // Задаем сообщение, которое хотим закодировать
-	string answer = "000001010100101110"; // Тут вписываем правильный ответ
-	vector <pair <char, double> > freq_table = frequency_analysis(text); // "Таблица" символ-вероятность 
-	vector <pair <char, double> > freq_desc = sort_vector_desc(freq_table); // Отсортированная по убывания таблица
-	vector<double> sum_freq = sum_frequencies(freq_desc); // Кумулятивные вероятности
-	vector<pair<char, string> > sh_f_codes = to_sh_f(freq_desc, sum_freq); //Таблица символ  - код: 
+	string text = "string"; // Р—Р°РґР°РµРј СЃРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
+	string answer = "000001010100101110"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
+	vector <pair <char, double> > freq_table = frequency_analysis(text); // "РўР°Р±Р»РёС†Р°" СЃРёРјРІРѕР»-РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ 
+	vector <pair <char, double> > freq_desc = sort_vector_desc(freq_table); // РћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅР°СЏ РїРѕ СѓР±С‹РІР°РЅРёСЏ С‚Р°Р±Р»РёС†Р°
+	vector<double> sum_freq = sum_frequencies(freq_desc); // РљСѓРјСѓР»СЏС‚РёРІРЅС‹Рµ РІРµСЂРѕСЏС‚РЅРѕСЃС‚Рё
+	vector<pair<char, string> > sh_f_codes = to_sh_f(freq_desc, sum_freq); //РўР°Р±Р»РёС†Р° СЃРёРјРІРѕР»  - РєРѕРґ: 
 	bool is_prefix = check_prefix(sh_f_codes);
 	pair <vector <pair<char, string> >, string> tables_code_and_code;
 	if (is_prefix)
@@ -338,12 +338,12 @@ void test_encode_1()
 }
 void test_encode_2()
 {
-	string text = "Код_Шеннона-Фано"; // Задаем сообщение, которое хотим закодировать
-	string answer = "100101010101011110011010000010000111110111101100010"; // Тут вписываем правильный ответ
-	vector <pair <char, double> > freq_table = frequency_analysis(text); // "Таблица" символ-вероятность 
-	vector <pair <char, double> > freq_desc = sort_vector_desc(freq_table); // Отсортированная по убывания таблица
-	vector<double> sum_freq = sum_frequencies(freq_desc); // Кумулятивные вероятности
-	vector<pair<char, string> > sh_f_codes = to_sh_f(freq_desc, sum_freq); //Таблица символ  - код: 
+	string text = "РљРѕРґ_РЁРµРЅРЅРѕРЅР°-Р¤Р°РЅРѕ"; // Р—Р°РґР°РµРј СЃРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
+	string answer = "100101010101011110011010000010000111110111101100010"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
+	vector <pair <char, double> > freq_table = frequency_analysis(text); // "РўР°Р±Р»РёС†Р°" СЃРёРјРІРѕР»-РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ 
+	vector <pair <char, double> > freq_desc = sort_vector_desc(freq_table); // РћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅР°СЏ РїРѕ СѓР±С‹РІР°РЅРёСЏ С‚Р°Р±Р»РёС†Р°
+	vector<double> sum_freq = sum_frequencies(freq_desc); // РљСѓРјСѓР»СЏС‚РёРІРЅС‹Рµ РІРµСЂРѕСЏС‚РЅРѕСЃС‚Рё
+	vector<pair<char, string> > sh_f_codes = to_sh_f(freq_desc, sum_freq); //РўР°Р±Р»РёС†Р° СЃРёРјРІРѕР»  - РєРѕРґ: 
 	bool is_prefix = check_prefix(sh_f_codes);
 	pair <vector <pair<char, string> >, string> tables_code_and_code;
 	if (is_prefix)
@@ -361,12 +361,12 @@ void test_encode_2()
 }
 void test_encode_3()
 {
-	string text = "Небеса и земля, также стары, как и я, десять тысяч вещей - суть одна."; // Задаем сообщение, которое хотим закодировать
-	string answer = "1100010001111001000011010001010001010010001100110001111001111101001100001001000001100101100111101011001100001000110010111011011010111001000010011010110011000101001000100001001000010110100110100100000110101111000011010101101001000011011110001110001001111100110011111010000011101100000100111100001101011110001111010101101111110001011111110"; // Тут вписываем правильный ответ
-	vector <pair <char, double> > freq_table = frequency_analysis(text); // "Таблица" символ-вероятность 
-	vector <pair <char, double> > freq_desc = sort_vector_desc(freq_table); // Отсортированная по убывания таблица
-	vector<double> sum_freq = sum_frequencies(freq_desc); // Кумулятивные вероятности
-	vector<pair<char, string> > sh_f_codes = to_sh_f(freq_desc, sum_freq); //Таблица символ  - код: 
+	string text = "РќРµР±РµСЃР° Рё Р·РµРјР»СЏ, С‚Р°РєР¶Рµ СЃС‚Р°СЂС‹, РєР°Рє Рё СЏ, РґРµСЃСЏС‚СЊ С‚С‹СЃСЏС‡ РІРµС‰РµР№ - СЃСѓС‚СЊ РѕРґРЅР°."; // Р—Р°РґР°РµРј СЃРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
+	string answer = "1100010001111001000011010001010001010010001100110001111001111101001100001001000001100101100111101011001100001000110010111011011010111001000010011010110011000101001000100001001000010110100110100100000110101111000011010101101001000011011110001110001001111100110011111010000011101100000100111100001101011110001111010101101111110001011111110"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
+	vector <pair <char, double> > freq_table = frequency_analysis(text); // "РўР°Р±Р»РёС†Р°" СЃРёРјРІРѕР»-РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ 
+	vector <pair <char, double> > freq_desc = sort_vector_desc(freq_table); // РћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅР°СЏ РїРѕ СѓР±С‹РІР°РЅРёСЏ С‚Р°Р±Р»РёС†Р°
+	vector<double> sum_freq = sum_frequencies(freq_desc); // РљСѓРјСѓР»СЏС‚РёРІРЅС‹Рµ РІРµСЂРѕСЏС‚РЅРѕСЃС‚Рё
+	vector<pair<char, string> > sh_f_codes = to_sh_f(freq_desc, sum_freq); //РўР°Р±Р»РёС†Р° СЃРёРјРІРѕР»  - РєРѕРґ: 
 	bool is_prefix = check_prefix(sh_f_codes);
 	pair <vector <pair<char, string> >, string> tables_code_and_code;
 	if (is_prefix)
@@ -384,12 +384,12 @@ void test_encode_3()
 }
 void test_encode_4()
 {
-	string text = "abcdefghijklmnopqrstuvwxyz"; // Задаем сообщение, которое хотим закодировать
-	string answer = "0000000001000100001100100001100011101000010010101101100011010111001111100011001010011101001011010111110001100111011111001110111110"; // Тут вписываем правильный ответ
-	vector <pair <char, double> > freq_table = frequency_analysis(text); // "Таблица" символ-вероятность 
-	vector <pair <char, double> > freq_desc = sort_vector_desc(freq_table); // Отсортированная по убывания таблица
-	vector<double> sum_freq = sum_frequencies(freq_desc); // Кумулятивные вероятности
-	vector<pair<char, string> > sh_f_codes = to_sh_f(freq_desc, sum_freq); //Таблица символ  - код: 
+	string text = "abcdefghijklmnopqrstuvwxyz"; // Р—Р°РґР°РµРј СЃРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
+	string answer = "0000000001000100001100100001100011101000010010101101100011010111001111100011001010011101001011010111110001100111011111001110111110"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
+	vector <pair <char, double> > freq_table = frequency_analysis(text); // "РўР°Р±Р»РёС†Р°" СЃРёРјРІРѕР»-РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ 
+	vector <pair <char, double> > freq_desc = sort_vector_desc(freq_table); // РћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅР°СЏ РїРѕ СѓР±С‹РІР°РЅРёСЏ С‚Р°Р±Р»РёС†Р°
+	vector<double> sum_freq = sum_frequencies(freq_desc); // РљСѓРјСѓР»СЏС‚РёРІРЅС‹Рµ РІРµСЂРѕСЏС‚РЅРѕСЃС‚Рё
+	vector<pair<char, string> > sh_f_codes = to_sh_f(freq_desc, sum_freq); //РўР°Р±Р»РёС†Р° СЃРёРјРІРѕР»  - РєРѕРґ: 
 	bool is_prefix = check_prefix(sh_f_codes);
 	pair <vector <pair<char, string> >, string> tables_code_and_code;
 	if (is_prefix)
@@ -407,12 +407,12 @@ void test_encode_4()
 }
 void test_encode_5()
 {
-	string text = "cogito ergo sum"; // Задаем сообщение, которое хотим закодировать
-	string answer = "01110000011000100100001010101011001000010110011011110"; // Тут вписываем правильный ответ
-	vector <pair <char, double> > freq_table = frequency_analysis(text); // "Таблица" символ-вероятность 
-	vector <pair <char, double> > freq_desc = sort_vector_desc(freq_table); // Отсортированная по убывания таблица
-	vector<double> sum_freq = sum_frequencies(freq_desc); // Кумулятивные вероятности
-	vector<pair<char, string> > sh_f_codes = to_sh_f(freq_desc, sum_freq); //Таблица символ  - код: 
+	string text = "cogito ergo sum"; // Р—Р°РґР°РµРј СЃРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
+	string answer = "01110000011000100100001010101011001000010110011011110"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
+	vector <pair <char, double> > freq_table = frequency_analysis(text); // "РўР°Р±Р»РёС†Р°" СЃРёРјРІРѕР»-РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ 
+	vector <pair <char, double> > freq_desc = sort_vector_desc(freq_table); // РћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅР°СЏ РїРѕ СѓР±С‹РІР°РЅРёСЏ С‚Р°Р±Р»РёС†Р°
+	vector<double> sum_freq = sum_frequencies(freq_desc); // РљСѓРјСѓР»СЏС‚РёРІРЅС‹Рµ РІРµСЂРѕСЏС‚РЅРѕСЃС‚Рё
+	vector<pair<char, string> > sh_f_codes = to_sh_f(freq_desc, sum_freq); //РўР°Р±Р»РёС†Р° СЃРёРјРІРѕР»  - РєРѕРґ: 
 	bool is_prefix = check_prefix(sh_f_codes);
 	pair <vector <pair<char, string> >, string> tables_code_and_code;
 	if (is_prefix)
@@ -429,7 +429,7 @@ void test_encode_5()
 	}
 }
 
-void tests_decode() // Функция объединяющая тесты декодирования
+void tests_decode() // Р¤СѓРЅРєС†РёСЏ РѕР±СЉРµРґРёРЅСЏСЋС‰Р°СЏ С‚РµСЃС‚С‹ РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ
 {
 	test_decode_1();
 	test_decode_2();
@@ -440,41 +440,41 @@ void tests_decode() // Функция объединяющая тесты декодирования
 void test_decode_1()
 {
 	pair <vector <pair<char, string> >, string> table_codes_and_code;
-	// Декодируемое сообщение
+	// Р”РµРєРѕРґРёСЂСѓРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 	table_codes_and_code.second = "100101010101011110011010000010000111110111101100010";
-	// Заполнение код-символ
-	pair<char, string> code1('н', "00"); // 1
+	// Р—Р°РїРѕР»РЅРµРЅРёРµ РєРѕРґ-СЃРёРјРІРѕР»
+	pair<char, string> code1('РЅ', "00"); // 1
 	table_codes_and_code.first.push_back(code1);
 	
-	pair<char, string> code2('о', "010"); // 2
+	pair<char, string> code2('Рѕ', "010"); // 2
 	table_codes_and_code.first.push_back(code2);
 	
-	pair<char, string> code3('а', "011"); // 3
+	pair<char, string> code3('Р°', "011"); // 3
 	table_codes_and_code.first.push_back(code3);
 
-	pair<char, string> code4('К', "1001"); // 4
+	pair<char, string> code4('Рљ', "1001"); // 4
 	table_codes_and_code.first.push_back(code4);
 
-	pair<char, string> code5('д', "1010"); // 5
+	pair<char, string> code5('Рґ', "1010"); // 5
 	table_codes_and_code.first.push_back(code5);
 
 	pair<char, string> code6('_', "1011"); // 6
 	table_codes_and_code.first.push_back(code6);
 
-	pair<char, string> code7('Ш', "1100"); // 7
+	pair<char, string> code7('РЁ', "1100"); // 7
 	table_codes_and_code.first.push_back(code7);
 
-	pair<char, string> code8('е', "1101"); // 8
+	pair<char, string> code8('Рµ', "1101"); // 8
 	table_codes_and_code.first.push_back(code8);
 
 	pair<char, string> code9('-', "1110"); // 9
 	table_codes_and_code.first.push_back(code9);
 
-	pair<char, string> code10('Ф', "1111"); // 10
+	pair<char, string> code10('Р¤', "1111"); // 10
 	table_codes_and_code.first.push_back(code10);
 
-	string text = table_codes_and_code.second; // Cообщение, которое хотим декодировать
-	string answer = "Код_Шеннона-Фано"; // Тут вписываем правильный ответ
+	string text = table_codes_and_code.second; // CРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С…РѕС‚РёРј РґРµРєРѕРґРёСЂРѕРІР°С‚СЊ
+	string answer = "РљРѕРґ_РЁРµРЅРЅРѕРЅР°-Р¤Р°РЅРѕ"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
 	if (decoding_to_decode(table_codes_and_code).second == answer)
 	{
 		printf("decode( %s ) == %s \n\t\tTRUE\n\n", text.c_str(), answer.c_str());
@@ -487,9 +487,9 @@ void test_decode_1()
 void test_decode_2()
 {
 	pair <vector <pair<char, string> >, string> table_codes_and_code;
-	// Декодируемое сообщение
+	// Р”РµРєРѕРґРёСЂСѓРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 	table_codes_and_code.second = "000001010100101110";
-	// Заполнение код-символ
+	// Р—Р°РїРѕР»РЅРµРЅРёРµ РєРѕРґ-СЃРёРјРІРѕР»
 	pair<char, string> code1('s', "000"); // 1
 	table_codes_and_code.first.push_back(code1);
 
@@ -508,8 +508,8 @@ void test_decode_2()
 	pair<char, string> code6('g', "110"); // 6
 	table_codes_and_code.first.push_back(code6);
 
-	string text = table_codes_and_code.second; // Cообщение, которое хотим декодировать
-	string answer = "string"; // Тут вписываем правильный ответ
+	string text = table_codes_and_code.second; // CРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С…РѕС‚РёРј РґРµРєРѕРґРёСЂРѕРІР°С‚СЊ
+	string answer = "string"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
 	if (decoding_to_decode(table_codes_and_code).second == answer)
 	{
 		printf("decode( %s ) == %s \n\t\tTRUE\n\n", text.c_str(), answer.c_str());
@@ -522,9 +522,9 @@ void test_decode_2()
 void test_decode_3()
 {
 	pair <vector <pair<char, string> >, string> table_codes_and_code;
-	// Декодируемое сообщение
+	// Р”РµРєРѕРґРёСЂСѓРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 	table_codes_and_code.second = "0110000100110";
-	// Заполнение код-символ
+	// Р—Р°РїРѕР»РЅРµРЅРёРµ РєРѕРґ-СЃРёРјРІРѕР»
 	pair<char, string> code1('p', "00"); // 1
 	table_codes_and_code.first.push_back(code1);
 
@@ -537,8 +537,8 @@ void test_decode_3()
 	pair<char, string> code4('e', "110"); // 4
 	table_codes_and_code.first.push_back(code4);
 
-	string text = table_codes_and_code.second; // Cообщение, которое хотим декодировать
-	string answer = "apple"; // Тут вписываем правильный ответ
+	string text = table_codes_and_code.second; // CРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С…РѕС‚РёРј РґРµРєРѕРґРёСЂРѕРІР°С‚СЊ
+	string answer = "apple"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
 	if (decoding_to_decode(table_codes_and_code).second == answer)
 	{
 		printf("decode( %s ) == %s \n\t\tTRUE\n\n", text.c_str(), answer.c_str());
@@ -551,38 +551,38 @@ void test_decode_3()
 void test_decode_4()
 {
 	pair <vector <pair<char, string> >, string> table_codes_and_code;
-	// Декодируемое сообщение
+	// Р”РµРєРѕРґРёСЂСѓРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 	table_codes_and_code.second = "000000010011010101111000101011001110";
-	// Заполнение код-символ
-	pair<char, string> code1('а', "0000"); // 1
+	// Р—Р°РїРѕР»РЅРµРЅРёРµ РєРѕРґ-СЃРёРјРІРѕР»
+	pair<char, string> code1('Р°', "0000"); // 1
 	table_codes_and_code.first.push_back(code1);
 
-	pair<char, string> code2('б', "0001"); // 2
+	pair<char, string> code2('Р±', "0001"); // 2
 	table_codes_and_code.first.push_back(code2);
 
-	pair<char, string> code3('в', "0011"); // 3
+	pair<char, string> code3('РІ', "0011"); // 3
 	table_codes_and_code.first.push_back(code3);
 
-	pair<char, string> code4('г', "0101"); // 4
+	pair<char, string> code4('Рі', "0101"); // 4
 	table_codes_and_code.first.push_back(code4);
 
-	pair<char, string> code5('д', "0111"); // 5
+	pair<char, string> code5('Рґ', "0111"); // 5
 	table_codes_and_code.first.push_back(code5);
 
-	pair<char, string> code6('е', "1000"); // 6
+	pair<char, string> code6('Рµ', "1000"); // 6
 	table_codes_and_code.first.push_back(code6);
 
-	pair<char, string> code7('ё', "1010"); // 7
+	pair<char, string> code7('С‘', "1010"); // 7
 	table_codes_and_code.first.push_back(code7);
 
-	pair<char, string> code8('ж', "1100"); // 8
+	pair<char, string> code8('Р¶', "1100"); // 8
 	table_codes_and_code.first.push_back(code8);
 
-	pair<char, string> code9('з', "1110"); // 9
+	pair<char, string> code9('Р·', "1110"); // 9
 	table_codes_and_code.first.push_back(code9);
 
-	string text = table_codes_and_code.second; // Cообщение, которое хотим декодировать
-	string answer = "абвгдеёжз"; // Тут вписываем правильный ответ
+	string text = table_codes_and_code.second; // CРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С…РѕС‚РёРј РґРµРєРѕРґРёСЂРѕРІР°С‚СЊ
+	string answer = "Р°Р±РІРіРґРµС‘Р¶Р·"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
 	if (decoding_to_decode(table_codes_and_code).second == answer)
 	{
 		printf("decode( %s ) == %s \n\t\tTRUE\n\n", text.c_str(), answer.c_str());
@@ -595,50 +595,50 @@ void test_decode_4()
 void test_decode_5()
 {
 	pair <vector <pair<char, string> >, string> table_codes_and_code;
-	// Декодируемое сообщение
+	// Р”РµРєРѕРґРёСЂСѓРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 	table_codes_and_code.second = "1101010110010001101100110000010001110010010001000100101001011101000111100000101001010001101100100001011001000111111100";
-	// Заполнение код-символ
+	// Р—Р°РїРѕР»РЅРµРЅРёРµ РєРѕРґ-СЃРёРјРІРѕР»
 	pair<char, string> code1(' ', "000"); // 1
 	table_codes_and_code.first.push_back(code1);
 
-	pair<char, string> code2('а', "001"); // 2
+	pair<char, string> code2('Р°', "001"); // 2
 	table_codes_and_code.first.push_back(code2);
 
-	pair<char, string> code3('с', "010"); // 3
+	pair<char, string> code3('СЃ', "010"); // 3
 	table_codes_and_code.first.push_back(code3);
 
-	pair<char, string> code4('ш', "1000"); // 4
+	pair<char, string> code4('С€', "1000"); // 4
 	table_codes_and_code.first.push_back(code4);
 
-	pair<char, string> code5('о', "1001"); // 5
+	pair<char, string> code5('Рѕ', "1001"); // 5
 	table_codes_and_code.first.push_back(code5);
 
-	pair<char, string> code6('л', "1011"); // 6
+	pair<char, string> code6('Р»', "1011"); // 6
 	table_codes_and_code.first.push_back(code6);
 
-	pair<char, string> code7('у', "1100"); // 7
+	pair<char, string> code7('Сѓ', "1100"); // 7
 	table_codes_and_code.first.push_back(code7);
 
-	pair<char, string> code8('Ш', "11010"); // 8
+	pair<char, string> code8('РЁ', "11010"); // 8
 	table_codes_and_code.first.push_back(code8);
 
-	pair<char, string> code9('С', "11011"); // 9
+	pair<char, string> code9('РЎ', "11011"); // 9
 	table_codes_and_code.first.push_back(code9);
 
-	pair<char, string> code10('п', "11100"); // 10
+	pair<char, string> code10('Рї', "11100"); // 10
 	table_codes_and_code.first.push_back(code10);
 
-	pair<char, string> code11('е', "11101"); // 11
+	pair<char, string> code11('Рµ', "11101"); // 11
 	table_codes_and_code.first.push_back(code11);
 
-	pair<char, string> code12('и', "11110"); // 12
+	pair<char, string> code12('Рё', "11110"); // 12
 	table_codes_and_code.first.push_back(code12);
 
-	pair<char, string> code13('к', "11111"); // 13
+	pair<char, string> code13('Рє', "11111"); // 13
 	table_codes_and_code.first.push_back(code13);
 
-	string text = table_codes_and_code.second; // Cообщение, которое хотим декодировать
-	string answer = "Шла Саша по шоссе и сосала сушку"; // Тут вписываем правильный ответ
+	string text = table_codes_and_code.second; // CРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С…РѕС‚РёРј РґРµРєРѕРґРёСЂРѕРІР°С‚СЊ
+	string answer = "РЁР»Р° РЎР°С€Р° РїРѕ С€РѕСЃСЃРµ Рё СЃРѕСЃР°Р»Р° СЃСѓС€РєСѓ"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
 	if (decoding_to_decode(table_codes_and_code).second == answer)
 	{
 		printf("decode( %s ) == %s \n\t\tTRUE\n\n", text.c_str(), answer.c_str());

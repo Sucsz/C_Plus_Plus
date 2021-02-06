@@ -1,29 +1,29 @@
-// Работу выполнил студент 3го курса РГПУ им. А. И. Герцена Семыкин В.В.
-// Время написания 20 минут
-// Данная программа реализует алгоритмы кодирования и декодирования стопкой книг 
-// Компилятор mingw-5.2.0
+// Р Р°Р±РѕС‚Сѓ РІС‹РїРѕР»РЅРёР» СЃС‚СѓРґРµРЅС‚ 3РіРѕ РєСѓСЂСЃР° Р Р“РџРЈ РёРј. Рђ. Р. Р“РµСЂС†РµРЅР° РЎРµРјС‹РєРёРЅ Р’.Р’.
+// Р’СЂРµРјСЏ РЅР°РїРёСЃР°РЅРёСЏ 20 РјРёРЅСѓС‚
+// Р”Р°РЅРЅР°СЏ РїСЂРѕРіСЂР°РјРјР° СЂРµР°Р»РёР·СѓРµС‚ Р°Р»РіРѕСЂРёС‚РјС‹ РєРѕРґРёСЂРѕРІР°РЅРёСЏ Рё РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ СЃС‚РѕРїРєРѕР№ РєРЅРёРі 
+// РљРѕРјРїРёР»СЏС‚РѕСЂ mingw-5.2.0
 
 #include "Header.h"
 int main()
 {
-    system("chcp 1251");  // Переходим на русский язык в консоли
+    system("chcp 1251");  // РџРµСЂРµС…РѕРґРёРј РЅР° СЂСѓСЃСЃРєРёР№ СЏР·С‹Рє РІ РєРѕРЅСЃРѕР»Рё
     system("cls");
-    cout << "\t\tТЕСТИРОВАНИЕ:\n";
+    cout << "\t\tРўР•РЎРўРР РћР’РђРќРР•:\n";
     tests();
     string input;
-    cout << "\t\tСЦЕНАРИЙ:\n";
-    cout << "Введите сообщение, которое вы желаете кодировать: \n\t\t";
+    cout << "\t\tРЎР¦Р•РќРђР РР™:\n";
+    cout << "Р’РІРµРґРёС‚Рµ СЃРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ РІС‹ Р¶РµР»Р°РµС‚Рµ РєРѕРґРёСЂРѕРІР°С‚СЊ: \n\t\t";
     cin >> input;
     string alphabet;
-    cout << "Введите алфавит кодирования одной строкой без разделителей\n\t\t";
+    cout << "Р’РІРµРґРёС‚Рµ Р°Р»С„Р°РІРёС‚ РєРѕРґРёСЂРѕРІР°РЅРёСЏ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРѕР№ Р±РµР· СЂР°Р·РґРµР»РёС‚РµР»РµР№\n\t\t";
     cin >> alphabet;
-    cout << "\nЗакодированное сообщение:\n";
+    cout << "\nР—Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     string code = to_kidling_books(input, alphabet);
-    cout << "Декодированное закодированное сообщение:\n";
+    cout << "Р”РµРєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ Р·Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     string decode = decode_kidling_books(code, alphabet);
     cout << "\t\t" << decode << "\n\n";
-    if (input == decode) cout << "Исходное сообщение совпало c декодированным!\n\n";
-    else cout << "Исходное сообщение не совпало c декодированным!\n\n";
+    if (input == decode) cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
+    else cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РЅРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
     system("pause");
     return 0;
 }
@@ -37,9 +37,9 @@ string to_kidling_books(string input, string alphabet)
         {
             if (input[counter] == alphabet[counter2])
             {
-                code += (counter2 + 1) + '0'; // +1 т.к. в цикле мы идем от 0ля
+                code += (counter2 + 1) + '0'; // +1 С‚.Рє. РІ С†РёРєР»Рµ РјС‹ РёРґРµРј РѕС‚ 0Р»СЏ
                 alphabet.insert(alphabet.begin(), alphabet[counter2]);
-                alphabet.erase(counter2 + 1,1); // +1 т.к. после вставки в начало размерность увеличилась на 1цу
+                alphabet.erase(counter2 + 1,1); // +1 С‚.Рє. РїРѕСЃР»Рµ РІСЃС‚Р°РІРєРё РІ РЅР°С‡Р°Р»Рѕ СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ СѓРІРµР»РёС‡РёР»Р°СЃСЊ РЅР° 1С†Сѓ
                 break;
             }
         }
@@ -54,7 +54,7 @@ string decode_kidling_books(string code, string alphabet)
     {
         decode += alphabet[(code[counter] - '0') - 1];
         alphabet.insert(alphabet.begin(), alphabet[(code[counter] - 1) - '0']);
-        alphabet.erase((code[counter] - '0'), 1); // +1 т.к. после вставки в начало размерность увеличилась на 1цу
+        alphabet.erase((code[counter] - '0'), 1); // +1 С‚.Рє. РїРѕСЃР»Рµ РІСЃС‚Р°РІРєРё РІ РЅР°С‡Р°Р»Рѕ СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ СѓРІРµР»РёС‡РёР»Р°СЃСЊ РЅР° 1С†Сѓ
     }
     return decode;
 }
@@ -69,8 +69,8 @@ void tests()
 }
 void test_1()
 {
-    string input = "cabbbabbac"; // Тут пишем, что хотим закодировать
-    string alphabet = "abc"; // Алфавит
+    string input = "cabbbabbac"; // РўСѓС‚ РїРёС€РµРј, С‡С‚Рѕ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
+    string alphabet = "abc"; // РђР»С„Р°РІРёС‚
     string code = to_kidling_books(input,alphabet);
     string decode = decode_kidling_books(code, alphabet);
     if (decode == input)
@@ -80,7 +80,7 @@ void test_1()
 }
 void test_2()
 {
-    string input = "abcdabcddcba"; // Тут пишем, что хотим закодировать
+    string input = "abcdabcddcba"; // РўСѓС‚ РїРёС€РµРј, С‡С‚Рѕ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
     string alphabet = "abcd";
     string code = to_kidling_books(input, alphabet);
     string decode = decode_kidling_books(code, alphabet);
@@ -91,8 +91,8 @@ void test_2()
 }
 void test_3()
 {
-    string input = "абракадабра"; // Тут пишем, что хотим закодировать
-    string alphabet = "абдкр";
+    string input = "Р°Р±СЂР°РєР°РґР°Р±СЂР°"; // РўСѓС‚ РїРёС€РµРј, С‡С‚Рѕ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
+    string alphabet = "Р°Р±РґРєСЂ";
     string code = to_kidling_books(input, alphabet);
     string decode = decode_kidling_books(code, alphabet);
     if (decode == input)
@@ -102,8 +102,8 @@ void test_3()
 }
 void test_4()
 {
-    string input = "артист"; // Тут пишем, что хотим закодировать
-    string alphabet = "аирст";
+    string input = "Р°СЂС‚РёСЃС‚"; // РўСѓС‚ РїРёС€РµРј, С‡С‚Рѕ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
+    string alphabet = "Р°РёСЂСЃС‚";
     string code = to_kidling_books(input, alphabet);
     string decode = decode_kidling_books(code, alphabet);
     if (decode == input)
@@ -113,8 +113,8 @@ void test_4()
 }
 void test_5()
 {
-    string input = "азбука"; // Тут пишем, что хотим закодировать
-    string alphabet = "абзку";
+    string input = "Р°Р·Р±СѓРєР°"; // РўСѓС‚ РїРёС€РµРј, С‡С‚Рѕ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
+    string alphabet = "Р°Р±Р·РєСѓ";
     string code = to_kidling_books(input, alphabet);
     string decode = decode_kidling_books(code, alphabet);
     if (decode == input)

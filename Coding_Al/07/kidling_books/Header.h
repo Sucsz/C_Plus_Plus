@@ -4,10 +4,10 @@
 #include <vector>
 using namespace std;
 
-// Сигнатуры функций
+// РЎРёРіРЅР°С‚СѓСЂС‹ С„СѓРЅРєС†РёР№
 string to_kidling_books(string, string);
 string decode_kidling_books(string, string);
-// Сигнатуры тестов
+// РЎРёРіРЅР°С‚СѓСЂС‹ С‚РµСЃС‚РѕРІ
 void test_1();
 void test_2();
 void test_3();

@@ -7,12 +7,12 @@
 #include <ctime>
 using namespace std;
 
-// Сигнатуры функций
+// РЎРёРіРЅР°С‚СѓСЂС‹ С„СѓРЅРєС†РёР№
 vector<bool> to_binary(unsigned);
 unsigned to_dec(string);
 string to_haming(unsigned);
 string do_wrong_code(string);
 string fix_wrong(string);
 unsigned decode_ham(string);
-// Сигнатуры тестов
+// РЎРёРіРЅР°С‚СѓСЂС‹ С‚РµСЃС‚РѕРІ
 void loop_tests();

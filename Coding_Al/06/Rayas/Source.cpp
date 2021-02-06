@@ -1,28 +1,28 @@
-// 5 минут m <= 8
+// 5 РјРёРЅСѓС‚ m <= 8
 #include "Header.h"
 
 int main()
 {
-    system("chcp 1251");  // Переходим на русский язык в консоли
+    system("chcp 1251");  // РџРµСЂРµС…РѕРґРёРј РЅР° СЂСѓСЃСЃРєРёР№ СЏР·С‹Рє РІ РєРѕРЅСЃРѕР»Рё
     system("cls");
     loop_test();
     unsigned input, param;
-    cout << "Введите целое положительное число, которое вы желаете кодировать: \n\t\t";
+    cout << "Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ, РєРѕС‚РѕСЂРѕРµ РІС‹ Р¶РµР»Р°РµС‚Рµ РєРѕРґРёСЂРѕРІР°С‚СЊ: \n\t\t";
     cin >> input;
-    cout << "Введите цело положителльное число, параметр кода Райса\n\t\t";
+    cout << "Р’РІРµРґРёС‚Рµ С†РµР»Рѕ РїРѕР»РѕР¶РёС‚РµР»Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ, РїР°СЂР°РјРµС‚СЂ РєРѕРґР° Р Р°Р№СЃР°\n\t\t";
     cin >> param;
-    cout << "\nЗакодированное сообщение:\n";
+    cout << "\nР—Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     string code = to_rayas(input, param);
     cout << "\t\t" << code << "\n\n";
-    cout << "Декодированное закодированное сообщение:\n";
+    cout << "Р”РµРєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ Р·Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     unsigned decode = decode_rayas(code, param);
     cout << "\t\t" << decode << "\n\n";
-    if (input == decode) cout << "Исходное сообщение совпало c декодированным!\n\n";
-    else cout << "Исходное сообщение не совпало c декодированным!\n\n";
+    if (input == decode) cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
+    else cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РЅРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
     system("pause");
     return 0;
 }
-// Функция переводит число в двоичную систему счисления
+// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґРёС‚ С‡РёСЃР»Рѕ РІ РґРІРѕРёС‡РЅСѓСЋ СЃРёСЃС‚РµРјСѓ СЃС‡РёСЃР»РµРЅРёСЏ
 vector<bool> to_binary(unsigned num)
 {
     vector<bool> res;
@@ -33,7 +33,7 @@ vector<bool> to_binary(unsigned num)
     }
     return res;
 }
-// Функция переводит число в десятичную систему счисления
+// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґРёС‚ С‡РёСЃР»Рѕ РІ РґРµСЃСЏС‚РёС‡РЅСѓСЋ СЃРёСЃС‚РµРјСѓ СЃС‡РёСЃР»РµРЅРёСЏ
 unsigned to_dec(string bin)
 {
     unsigned res = 0;
@@ -50,27 +50,27 @@ string to_rayas(unsigned num, unsigned param)
     vector <bool> code;
     string to_string;
 
-    // Дописываем унарный код num / param
+    // Р”РѕРїРёСЃС‹РІР°РµРј СѓРЅР°СЂРЅС‹Р№ РєРѕРґ num / param
     for (int counter = 0; counter < num / param; counter++)
         code.push_back(1);
     code.push_back(0);
-    // Дописываем справа бинарный код num % param, который занимает log2(param) бит
+    // Р”РѕРїРёСЃС‹РІР°РµРј СЃРїСЂР°РІР° Р±РёРЅР°СЂРЅС‹Р№ РєРѕРґ num % param, РєРѕС‚РѕСЂС‹Р№ Р·Р°РЅРёРјР°РµС‚ log2(param) Р±РёС‚
     bin_num = to_binary(num % param);
     bin_num.resize(log2(param));
     for (int counter = bin_num.size() - 1; counter >= 0; counter--)
         code.push_back(bin_num[counter]);
 
-    for (int counter = 0; counter < code.size(); counter++)      // Переводим в строку
+    for (int counter = 0; counter < code.size(); counter++)      // РџРµСЂРµРІРѕРґРёРј РІ СЃС‚СЂРѕРєСѓ
         to_string += (int)code[counter] + '0';
     return to_string;
 }
-// Перевод кода Райса в десятичное представление
+// РџРµСЂРµРІРѕРґ РєРѕРґР° Р Р°Р№СЃР° РІ РґРµСЃСЏС‚РёС‡РЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ
 unsigned decode_rayas(string code, unsigned param)
 {
     param = pow(2, param);
     int n_div_param = 0; // n - decode num
-    vector <vector<string>> huffman_codes; // Мемоизация кодов хаффмана, при желании можно расширить
-    vector<string> code_0; code_0.push_back("#"); //В начале добавляем любой символ, так как остаток ноль - означает деление нацело => степень двойки
+    vector <vector<string>> huffman_codes; // РњРµРјРѕРёР·Р°С†РёСЏ РєРѕРґРѕРІ С…Р°С„С„РјР°РЅР°, РїСЂРё Р¶РµР»Р°РЅРёРё РјРѕР¶РЅРѕ СЂР°СЃС€РёСЂРёС‚СЊ
+    vector<string> code_0; code_0.push_back("#"); //Р’ РЅР°С‡Р°Р»Рµ РґРѕР±Р°РІР»СЏРµРј Р»СЋР±РѕР№ СЃРёРјРІРѕР», С‚Р°Рє РєР°Рє РѕСЃС‚Р°С‚РѕРє РЅРѕР»СЊ - РѕР·РЅР°С‡Р°РµС‚ РґРµР»РµРЅРёРµ РЅР°С†РµР»Рѕ => СЃС‚РµРїРµРЅСЊ РґРІРѕР№РєРё
     vector<string> code_1; code_1.push_back("0");
     vector<string> code_2; code_2.push_back("1"); code_2.push_back("0");
     vector<string> code_3; code_3.push_back("0"); code_3.push_back("10"); code_3.push_back("11");
@@ -88,8 +88,8 @@ unsigned decode_rayas(string code, unsigned param)
         n_div_param++;
     }
     int n_mod_param = 0;
-    code.erase(code.begin()); // Избавились от унарного представления num div m
-     // Проверка param на степень двойки
+    code.erase(code.begin()); // РР·Р±Р°РІРёР»РёСЃСЊ РѕС‚ СѓРЅР°СЂРЅРѕРіРѕ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ num div m
+     // РџСЂРѕРІРµСЂРєР° param РЅР° СЃС‚РµРїРµРЅСЊ РґРІРѕР№РєРё
         int c_l2_p = (int)ceil(log2(param));
         code.resize(c_l2_p);
         n_mod_param = to_dec(code);

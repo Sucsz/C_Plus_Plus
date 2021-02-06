@@ -1,28 +1,28 @@
-//5 минут m<=8
+//5 РјРёРЅСѓС‚ m<=8
 #include "Header.h"
 
 int main()
 {
-    system("chcp 1251");  // Переходим на русский язык в консоли
+    system("chcp 1251");  // РџРµСЂРµС…РѕРґРёРј РЅР° СЂСѓСЃСЃРєРёР№ СЏР·С‹Рє РІ РєРѕРЅСЃРѕР»Рё
     system("cls");
     loop_test();
     unsigned input, param;
-    cout << "Введите целое положительное число, которое вы желаете кодировать: \n\t\t";
+    cout << "Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ, РєРѕС‚РѕСЂРѕРµ РІС‹ Р¶РµР»Р°РµС‚Рµ РєРѕРґРёСЂРѕРІР°С‚СЊ: \n\t\t";
     cin >> input;
-    cout << "Введите цело положителльное число, параметр кода Голомба\n\t\t";
+    cout << "Р’РІРµРґРёС‚Рµ С†РµР»Рѕ РїРѕР»РѕР¶РёС‚РµР»Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ, РїР°СЂР°РјРµС‚СЂ РєРѕРґР° Р“РѕР»РѕРјР±Р°\n\t\t";
     cin >> param;
-    cout << "\nЗакодированное сообщение:\n";
+    cout << "\nР—Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     string code = to_golomb(input, param);
     cout << "\t\t" << code << "\n\n";
-    cout << "Декодированное закодированное сообщение:\n";
+    cout << "Р”РµРєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ Р·Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
     unsigned decode = decode_golomb(code,param);
     cout << "\t\t" << decode << "\n\n";
-    if (input == decode) cout << "Исходное сообщение совпало c декодированным!\n\n";
-    else cout << "Исходное сообщение не совпало c декодированным!\n\n";
+    if (input == decode) cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
+    else cout << "РСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ РЅРµ СЃРѕРІРїР°Р»Рѕ c РґРµРєРѕРґРёСЂРѕРІР°РЅРЅС‹Рј!\n\n";
     system("pause");
     return 0;
 }
-// Функция переводит число в двоичную систему счисления
+// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґРёС‚ С‡РёСЃР»Рѕ РІ РґРІРѕРёС‡РЅСѓСЋ СЃРёСЃС‚РµРјСѓ СЃС‡РёСЃР»РµРЅРёСЏ
 vector<bool> to_binary(unsigned num)
 {
     vector<bool> res;
@@ -33,7 +33,7 @@ vector<bool> to_binary(unsigned num)
     }
     return res;
 }
-// Функция переводит число в десятичную систему счисления
+// Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРІРѕРґРёС‚ С‡РёСЃР»Рѕ РІ РґРµСЃСЏС‚РёС‡РЅСѓСЋ СЃРёСЃС‚РµРјСѓ СЃС‡РёСЃР»РµРЅРёСЏ
 unsigned to_dec(string bin)
 {
     unsigned res = 0;
@@ -49,15 +49,15 @@ string to_golomb(unsigned num, unsigned param)
     vector <bool> code;
     string to_string;
 
-    // Дописываем унарный код num / param
+    // Р”РѕРїРёСЃС‹РІР°РµРј СѓРЅР°СЂРЅС‹Р№ РєРѕРґ num / param
     for (int counter = 0; counter < num / param; counter++)
         code.push_back(1);
     code.push_back(0);
-    // Проверяем на степень двойки
-    if ((param & (param - 1)) == 0) // Работа со сдвигами, двоичное представление числа,
-                                    // Которое является степенью двойки, есть единица и все нули, предшествующее - все единицы
+    // РџСЂРѕРІРµСЂСЏРµРј РЅР° СЃС‚РµРїРµРЅСЊ РґРІРѕР№РєРё
+    if ((param & (param - 1)) == 0) // Р Р°Р±РѕС‚Р° СЃРѕ СЃРґРІРёРіР°РјРё, РґРІРѕРёС‡РЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ С‡РёСЃР»Р°,
+                                    // РљРѕС‚РѕСЂРѕРµ СЏРІР»СЏРµС‚СЃСЏ СЃС‚РµРїРµРЅСЊСЋ РґРІРѕР№РєРё, РµСЃС‚СЊ РµРґРёРЅРёС†Р° Рё РІСЃРµ РЅСѓР»Рё, РїСЂРµРґС€РµСЃС‚РІСѓСЋС‰РµРµ - РІСЃРµ РµРґРёРЅРёС†С‹
     {
-        // Дописываем справа бинарный код num % param, который занимает log2(param) бит
+        // Р”РѕРїРёСЃС‹РІР°РµРј СЃРїСЂР°РІР° Р±РёРЅР°СЂРЅС‹Р№ РєРѕРґ num % param, РєРѕС‚РѕСЂС‹Р№ Р·Р°РЅРёРјР°РµС‚ log2(param) Р±РёС‚
         bin_num = to_binary(num % param);
         bin_num.resize(log2(param));
         for (int counter = bin_num.size() - 1; counter >= 0; counter--)
@@ -68,7 +68,7 @@ string to_golomb(unsigned num, unsigned param)
         int num_mod_param = num % param, c_l2_p = (int)ceil(log2(param));
         if (num_mod_param < pow(2, c_l2_p) - param)
         {
-            // Дописываем справа бинарный код num_mod_param, который занимает c_l2_p-1 бит
+            // Р”РѕРїРёСЃС‹РІР°РµРј СЃРїСЂР°РІР° Р±РёРЅР°СЂРЅС‹Р№ РєРѕРґ num_mod_param, РєРѕС‚РѕСЂС‹Р№ Р·Р°РЅРёРјР°РµС‚ c_l2_p-1 Р±РёС‚
             bin_num = to_binary(num_mod_param);
             bin_num.resize(c_l2_p - 1);
             for (int counter = bin_num.size() - 1; counter >= 0; counter--)
@@ -76,7 +76,7 @@ string to_golomb(unsigned num, unsigned param)
         }
         else
         {
-            // Дописываем справа бинарный код num_mod_param + (pow(2, c_l2_p) - param), который занимает c_l2_p битов
+            // Р”РѕРїРёСЃС‹РІР°РµРј СЃРїСЂР°РІР° Р±РёРЅР°СЂРЅС‹Р№ РєРѕРґ num_mod_param + (pow(2, c_l2_p) - param), РєРѕС‚РѕСЂС‹Р№ Р·Р°РЅРёРјР°РµС‚ c_l2_p Р±РёС‚РѕРІ
             bin_num = to_binary(num_mod_param + (pow(2, c_l2_p) - param));
             bin_num.resize(c_l2_p);
             for (int counter = bin_num.size() - 1; counter >= 0; counter--)
@@ -84,16 +84,16 @@ string to_golomb(unsigned num, unsigned param)
         }
     }
 
-    for (int counter = 0; counter < code.size(); counter++)      // Переводим в строку
+    for (int counter = 0; counter < code.size(); counter++)      // РџРµСЂРµРІРѕРґРёРј РІ СЃС‚СЂРѕРєСѓ
         to_string += (int)code[counter] + '0';
     return to_string;
 }
-// Перевод кода Голомба в десятичное представление
+// РџРµСЂРµРІРѕРґ РєРѕРґР° Р“РѕР»РѕРјР±Р° РІ РґРµСЃСЏС‚РёС‡РЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ
 unsigned decode_golomb(string code, unsigned param)
 {
     int n_div_param = 0; // n - decode num
-    vector <vector<string>> huffman_codes; // Мемоизация кодов хаффмана, при желании можно расширить
-    vector<string> code_0; code_0.push_back("#"); //В начале добавляем любой символ, так как остаток ноль - означает деление нацело => степень двойки
+    vector <vector<string>> huffman_codes; // РњРµРјРѕРёР·Р°С†РёСЏ РєРѕРґРѕРІ С…Р°С„С„РјР°РЅР°, РїСЂРё Р¶РµР»Р°РЅРёРё РјРѕР¶РЅРѕ СЂР°СЃС€РёСЂРёС‚СЊ
+    vector<string> code_0; code_0.push_back("#"); //Р’ РЅР°С‡Р°Р»Рµ РґРѕР±Р°РІР»СЏРµРј Р»СЋР±РѕР№ СЃРёРјРІРѕР», С‚Р°Рє РєР°Рє РѕСЃС‚Р°С‚РѕРє РЅРѕР»СЊ - РѕР·РЅР°С‡Р°РµС‚ РґРµР»РµРЅРёРµ РЅР°С†РµР»Рѕ => СЃС‚РµРїРµРЅСЊ РґРІРѕР№РєРё
     vector<string> code_1; code_1.push_back("0");
     vector<string> code_2; code_2.push_back("1"); code_2.push_back("0");
     vector<string> code_3; code_3.push_back("0"); code_3.push_back("10"); code_3.push_back("11");
@@ -111,16 +111,16 @@ unsigned decode_golomb(string code, unsigned param)
         n_div_param++;
     }
     int n_mod_param = 0;
-    code.erase(code.begin()); // Избавились от унарного представления num div m
-    if ((param & (param - 1)) == 0) // Проверка param на степень двойки
+    code.erase(code.begin()); // РР·Р±Р°РІРёР»РёСЃСЊ РѕС‚ СѓРЅР°СЂРЅРѕРіРѕ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ num div m
+    if ((param & (param - 1)) == 0) // РџСЂРѕРІРµСЂРєР° param РЅР° СЃС‚РµРїРµРЅСЊ РґРІРѕР№РєРё
     {
         int c_l2_p = (int)ceil(log2(param));
         code.resize(c_l2_p);
         n_mod_param = to_dec(code);
         return n_div_param * param + n_mod_param;
     }
-    // Иначе
-    for (int counter = 0; counter < huffman_codes[param].size(); counter++) // Ищем нужный код хаффмана
+    // РРЅР°С‡Рµ
+    for (int counter = 0; counter < huffman_codes[param].size(); counter++) // РС‰РµРј РЅСѓР¶РЅС‹Р№ РєРѕРґ С…Р°С„С„РјР°РЅР°
     {
         if (code == huffman_codes[param][counter])
         {

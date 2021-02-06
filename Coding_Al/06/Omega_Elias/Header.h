@@ -5,7 +5,7 @@
 #include <cmath>
 using namespace std;
 
-// Сигнатуры тестов
+// РЎРёРіРЅР°С‚СѓСЂС‹ С‚РµСЃС‚РѕРІ
 vector<bool> to_binary(unsigned);
 unsigned to_dec(string);
 string to_omega_elias(unsigned);

@@ -5,13 +5,13 @@
 #include <map>
 using namespace std;
 
-// Сигнтары функций
+// РЎРёРіРЅС‚Р°СЂС‹ С„СѓРЅРєС†РёР№
 map<char, int> frequency_analysis(string);
 void show_freq_table(map<char, int>);
 string to_range_1(string);
 string decode_range_1(vector<char>, string);
 
-// Сигнатуры тестов
+// РЎРёРіРЅР°С‚СѓСЂС‹ С‚РµСЃС‚РѕРІ
 void tests();
 void test_1();
 void test_2();

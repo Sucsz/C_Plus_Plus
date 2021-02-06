@@ -1,53 +1,53 @@
 #include "header.h"
 
 /*
-Общее время выполнения работы ~10 часов
+РћР±С‰РµРµ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ СЂР°Р±РѕС‚С‹ ~10 С‡Р°СЃРѕРІ
 
-Работа выполнена студентом 3 курса ИИТО ИСиТ
-   Семыкиным В.В.
+Р Р°Р±РѕС‚Р° РІС‹РїРѕР»РЅРµРЅР° СЃС‚СѓРґРµРЅС‚РѕРј 3 РєСѓСЂСЃР° РРРўРћ РРЎРёРў
+   РЎРµРјС‹РєРёРЅС‹Рј Р’.Р’.
 
-Данная программа реализует алгоритм построения кодов Хаффмана, кодирование заданного сообщение, декодирование, построение дерева Хаффмана.
+Р”Р°РЅРЅР°СЏ РїСЂРѕРіСЂР°РјРјР° СЂРµР°Р»РёР·СѓРµС‚ Р°Р»РіРѕСЂРёС‚Рј РїРѕСЃС‚СЂРѕРµРЅРёСЏ РєРѕРґРѕРІ РҐР°С„С„РјР°РЅР°, РєРѕРґРёСЂРѕРІР°РЅРёРµ Р·Р°РґР°РЅРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёРµ, РґРµРєРѕРґРёСЂРѕРІР°РЅРёРµ, РїРѕСЃС‚СЂРѕРµРЅРёРµ РґРµСЂРµРІР° РҐР°С„С„РјР°РЅР°.
 */
 
 int main()
 {
-	system("chcp 1251");  // Переходим на русский язык в консоли
+	system("chcp 1251");  // РџРµСЂРµС…РѕРґРёРј РЅР° СЂСѓСЃСЃРєРёР№ СЏР·С‹Рє РІ РєРѕРЅСЃРѕР»Рё
 	system("cls");
-	cout << "Тесты кодирования:\n";
+	cout << "РўРµСЃС‚С‹ РєРѕРґРёСЂРѕРІР°РЅРёСЏ:\n";
 //	system("pause");
 //	tests_encode();
-	cout << "Тесты декодирования:\n";
+	cout << "РўРµСЃС‚С‹ РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ:\n";
 //	system("pause");
 //	tests_decode();
 //	system("pause");
-	cout << "\t\t\t\t\tЗАПУСК СЦЕНАРИЯ:\n\n"; // Сценарий - это loop-test, в начале кодируем, потом декодируем полученное
-	cout << "Введите сообщение, которое вы желаете кодировать: \n";
+	cout << "\t\t\t\t\tР—РђРџРЈРЎРљ РЎР¦Р•РќРђР РРЇ:\n\n"; // РЎС†РµРЅР°СЂРёР№ - СЌС‚Рѕ loop-test, РІ РЅР°С‡Р°Р»Рµ РєРѕРґРёСЂСѓРµРј, РїРѕС‚РѕРј РґРµРєРѕРґРёСЂСѓРµРј РїРѕР»СѓС‡РµРЅРЅРѕРµ
+	cout << "Р’РІРµРґРёС‚Рµ СЃРѕРѕР±С‰РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ РІС‹ Р¶РµР»Р°РµС‚Рµ РєРѕРґРёСЂРѕРІР°С‚СЊ: \n";
 	string input;
 	getline(cin, input);
 	map<char, int> freq_table = frequency_analysis(input);
-	cout << "\n\nТаблица символ-количество:\n";
+	cout << "\n\nРўР°Р±Р»РёС†Р° СЃРёРјРІРѕР»-РєРѕР»РёС‡РµСЃС‚РІРѕ:\n";
 	show_freq_table(freq_table);
-	cout << "Порядок выполнения аппликаций:\n";
+	cout << "РџРѕСЂСЏРґРѕРє РІС‹РїРѕР»РЅРµРЅРёСЏ Р°РїРїР»РёРєР°С†РёР№:\n";
 	priority_queue<Node*, vector<Node*>, Compare> tree = fill_tree(freq_table);
 	priority_queue<Node*, vector<Node*>, Compare> tree_haffman = to_haffamn(tree);
 	map<char, string> table_codes;
 	cout << "\n\n";
 	traversal_tree(&table_codes, tree_haffman.top(), "");
-	cout << "\n\nТаблица символ-код:\n";
+	cout << "\n\nРўР°Р±Р»РёС†Р° СЃРёРјРІРѕР»-РєРѕРґ:\n";
 	show_table_codes(table_codes);
-	cout << "\n\nПроверка неравенства Крафта:\n";
+	cout << "\n\nРџСЂРѕРІРµСЂРєР° РЅРµСЂР°РІРµРЅСЃС‚РІР° РљСЂР°С„С‚Р°:\n";
 	check_kraft(table_codes);
 	string code = encoding_to_code(input, table_codes);
-	cout << "\n\n\nЗакодированное исходное сообщение: \n" << code;
+	cout << "\n\n\nР—Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ РёСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ: \n" << code;
 	string decode = decoding_to_decode(code, table_codes);
-	cout << "\n\nДекодированное закодированное сообщение: \n" << decode;
+	cout << "\n\nР”РµРєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ Р·Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ: \n" << decode;
 	if (decode == input)
-		cout << "\n\nИсходная строка совпала с декодированной!\n";
+		cout << "\n\nРСЃС…РѕРґРЅР°СЏ СЃС‚СЂРѕРєР° СЃРѕРІРїР°Р»Р° СЃ РґРµРєРѕРґРёСЂРѕРІР°РЅРЅРѕР№!\n";
 	cout << "\n\n";
 	system("pause");
 	return 0;
 }
-map<char, int> frequency_analysis(string input) // Функция, реализующая частотный анализ входящей строки
+map<char, int> frequency_analysis(string input) // Р¤СѓРЅРєС†РёСЏ, СЂРµР°Р»РёР·СѓСЋС‰Р°СЏ С‡Р°СЃС‚РѕС‚РЅС‹Р№ Р°РЅР°Р»РёР· РІС…РѕРґСЏС‰РµР№ СЃС‚СЂРѕРєРё
 {
 	map<char, int> freq_table;
 	int size = input.size();
@@ -60,7 +60,7 @@ void show_freq_table(map<char, int> freq_table)
 {
 	map<char, int>::iterator it;
 	for (it = freq_table.begin(); it != freq_table.end(); it++)
-		cout << "Символ: " << it->first << "\tКоличество: " << it->second << '\n';
+		cout << "РЎРёРјРІРѕР»: " << it->first << "\tРљРѕР»РёС‡РµСЃС‚РІРѕ: " << it->second << '\n';
 	cout << "\n\n";
 }
 
@@ -68,18 +68,18 @@ void show_table_codes(map<char, string> freq_table)
 {
 	map<char, string>::iterator it;
 	for (it = freq_table.begin(); it != freq_table.end(); it++)
-		cout << "Символ: " << it->first << "\tкод: " << it->second << '\n';
+		cout << "РЎРёРјРІРѕР»: " << it->first << "\tРєРѕРґ: " << it->second << '\n';
 }
 
-priority_queue<Node*, vector<Node*>, Compare> fill_tree(map<char, int> freq_table) // Функция заполняет дерево хаффмана
+priority_queue<Node*, vector<Node*>, Compare> fill_tree(map<char, int> freq_table) // Р¤СѓРЅРєС†РёСЏ Р·Р°РїРѕР»РЅСЏРµС‚ РґРµСЂРµРІРѕ С…Р°С„С„РјР°РЅР°
 {
 	priority_queue<Node*, vector<Node*>, Compare> tree;
 	map<char, int>::iterator it;
 	for (it = freq_table.begin(); it != freq_table.end(); it++)
 	{
-		Node* p = new Node(it->first, it->second); // Создание нового узла с заданными значениями
+		Node* p = new Node(it->first, it->second); // РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ СѓР·Р»Р° СЃ Р·Р°РґР°РЅРЅС‹РјРё Р·РЅР°С‡РµРЅРёСЏРјРё
 		tree.push(p);
-		// cout << "|добавляемая буква " << p->symbol << '-' << tree.top()->symbol << " Верхняя буква в очереди| "; Проверка правильного заполнения очереди
+		// cout << "|РґРѕР±Р°РІР»СЏРµРјР°СЏ Р±СѓРєРІР° " << p->symbol << '-' << tree.top()->symbol << " Р’РµСЂС…РЅСЏСЏ Р±СѓРєРІР° РІ РѕС‡РµСЂРµРґРё| "; РџСЂРѕРІРµСЂРєР° РїСЂР°РІРёР»СЊРЅРѕРіРѕ Р·Р°РїРѕР»РЅРµРЅРёСЏ РѕС‡РµСЂРµРґРё
 	}
 	return tree;
 }
@@ -87,7 +87,7 @@ priority_queue<Node*, vector<Node*>, Compare> to_haffamn(priority_queue<Node*, v
 {
 	if (tree.size() == 1)
 	{
-		tree.top()->rib = 0; // Без разницы, можно 1, можно 0.
+		tree.top()->rib = 0; // Р‘РµР· СЂР°Р·РЅРёС†С‹, РјРѕР¶РЅРѕ 1, РјРѕР¶РЅРѕ 0.
 		return tree;
 	}
 	while (tree.size() != 1)
@@ -106,12 +106,12 @@ priority_queue<Node*, vector<Node*>, Compare> to_haffamn(priority_queue<Node*, v
 	}
 	return tree;
 }
-void traversal_tree(map<char, string>* table_codes, Node* root, string code, unsigned k) // Обход по деревву, вывод и составление кодов
+void traversal_tree(map<char, string>* table_codes, Node* root, string code, unsigned k) // РћР±С…РѕРґ РїРѕ РґРµСЂРµРІРІСѓ, РІС‹РІРѕРґ Рё СЃРѕСЃС‚Р°РІР»РµРЅРёРµ РєРѕРґРѕРІ
 {
 	if (root)
 	{
 
-		if (root->rib >= 0 && root->rib <= 1) // У корня нет ребра, поэтому приходится ставить условие, ограничивающие попадание корня
+		if (root->rib >= 0 && root->rib <= 1) // РЈ РєРѕСЂРЅСЏ РЅРµС‚ СЂРµР±СЂР°, РїРѕСЌС‚РѕРјСѓ РїСЂРёС…РѕРґРёС‚СЃСЏ СЃС‚Р°РІРёС‚СЊ СѓСЃР»РѕРІРёРµ, РѕРіСЂР°РЅРёС‡РёРІР°СЋС‰РёРµ РїРѕРїР°РґР°РЅРёРµ РєРѕСЂРЅСЏ
 			code += root->rib + '0';
 		traversal_tree(table_codes, root->left, code, k + 3);
 		for (unsigned i = 0; i < k; i++)
@@ -134,19 +134,19 @@ void check_kraft(map<char, string> table_codes)
 		kraft += 1 / pow(2, it->second.size());
 	cout << "KRAFT = " << kraft;
 	if (kraft <= 1)
-		cout << "\nПроверка пройдена. Полученная схема кодов является разделимой";
+		cout << "\nРџСЂРѕРІРµСЂРєР° РїСЂРѕР№РґРµРЅР°. РџРѕР»СѓС‡РµРЅРЅР°СЏ СЃС…РµРјР° РєРѕРґРѕРІ СЏРІР»СЏРµС‚СЃСЏ СЂР°Р·РґРµР»РёРјРѕР№";
 	else
-		cout << "\nПроверка не пройдена, Полученная схема кодов не является разделимой";
+		cout << "\nРџСЂРѕРІРµСЂРєР° РЅРµ РїСЂРѕР№РґРµРЅР°, РџРѕР»СѓС‡РµРЅРЅР°СЏ СЃС…РµРјР° РєРѕРґРѕРІ РЅРµ СЏРІР»СЏРµС‚СЃСЏ СЂР°Р·РґРµР»РёРјРѕР№";
 }
-// Функция, кодирующая исходное сообщение, принимает таблицу кодов и исходное сообщение, возвращает  закодированное сообщение. 
+// Р¤СѓРЅРєС†РёСЏ, РєРѕРґРёСЂСѓСЋС‰Р°СЏ РёСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ, РїСЂРёРЅРёРјР°РµС‚ С‚Р°Р±Р»РёС†Сѓ РєРѕРґРѕРІ Рё РёСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ, РІРѕР·РІСЂР°С‰Р°РµС‚  Р·Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ. 
 string encoding_to_code(string input, map<char, string> table_codes)
 {
 	int size = input.size();
 	string code;
 	map<char, string>::iterator it;
-	for (int count = 0; count < size; count++) // Для каждой буквы исходной строки
+	for (int count = 0; count < size; count++) // Р”Р»СЏ РєР°Р¶РґРѕР№ Р±СѓРєРІС‹ РёСЃС…РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё
 	{
-		for (it = table_codes.begin(); it != table_codes.end(); it++) // Рассматриваем все кодовые слова, пока не встретится необходимый код
+		for (it = table_codes.begin(); it != table_codes.end(); it++) // Р Р°СЃСЃРјР°С‚СЂРёРІР°РµРј РІСЃРµ РєРѕРґРѕРІС‹Рµ СЃР»РѕРІР°, РїРѕРєР° РЅРµ РІСЃС‚СЂРµС‚РёС‚СЃСЏ РЅРµРѕР±С…РѕРґРёРјС‹Р№ РєРѕРґ
 		{
 			if (input[count] == it->first)
 			{
@@ -157,35 +157,35 @@ string encoding_to_code(string input, map<char, string> table_codes)
 	}
 	return code;
 }
-// Функция, декодирующая исходное сообщение, принимает таблицу кодов и закодированное сообщение, возвращает декодированное сообщение. 
+// Р¤СѓРЅРєС†РёСЏ, РґРµРєРѕРґРёСЂСѓСЋС‰Р°СЏ РёСЃС…РѕРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ, РїСЂРёРЅРёРјР°РµС‚ С‚Р°Р±Р»РёС†Сѓ РєРѕРґРѕРІ Рё Р·Р°РєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ, РІРѕР·РІСЂР°С‰Р°РµС‚ РґРµРєРѕРґРёСЂРѕРІР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ. 
 string decoding_to_decode(string code, map<char, string> table_codes)
 {
 	int size = code.size();
 	string decode;
 	string cur_code;
 	map<char, string>::iterator it;
-	for (int count = 0; count < size; count++) // Для каждой цифры исходной строки будем формировать кодовое слово, и проверять его на соответсвие таблице кодов, если не нашли
-													// То увеличиваем кодовое слово, добавляяя следующую цифру.
+	for (int count = 0; count < size; count++) // Р”Р»СЏ РєР°Р¶РґРѕР№ С†РёС„СЂС‹ РёСЃС…РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё Р±СѓРґРµРј С„РѕСЂРјРёСЂРѕРІР°С‚СЊ РєРѕРґРѕРІРѕРµ СЃР»РѕРІРѕ, Рё РїСЂРѕРІРµСЂСЏС‚СЊ РµРіРѕ РЅР° СЃРѕРѕС‚РІРµС‚СЃРІРёРµ С‚Р°Р±Р»РёС†Рµ РєРѕРґРѕРІ, РµСЃР»Рё РЅРµ РЅР°С€Р»Рё
+													// РўРѕ СѓРІРµР»РёС‡РёРІР°РµРј РєРѕРґРѕРІРѕРµ СЃР»РѕРІРѕ, РґРѕР±Р°РІР»СЏСЏСЏ СЃР»РµРґСѓСЋС‰СѓСЋ С†РёС„СЂСѓ.
 	{
 		cur_code += code[count];
-		for (it = table_codes.begin(); it != table_codes.end(); it++) // Рассматриваем все кодовые слова, пока не встретится необходимый код
+		for (it = table_codes.begin(); it != table_codes.end(); it++) // Р Р°СЃСЃРјР°С‚СЂРёРІР°РµРј РІСЃРµ РєРѕРґРѕРІС‹Рµ СЃР»РѕРІР°, РїРѕРєР° РЅРµ РІСЃС‚СЂРµС‚РёС‚СЃСЏ РЅРµРѕР±С…РѕРґРёРјС‹Р№ РєРѕРґ
 		{
 			if (cur_code == it->second)
 			{
 				decode += it->first;
-				cur_code = ""; // Если подходящее кодовое слово найдено, добавляем в декод символ, хранящийся под этим кодом и обнуляем код.
+				cur_code = ""; // Р•СЃР»Рё РїРѕРґС…РѕРґСЏС‰РµРµ РєРѕРґРѕРІРѕРµ СЃР»РѕРІРѕ РЅР°Р№РґРµРЅРѕ, РґРѕР±Р°РІР»СЏРµРј РІ РґРµРєРѕРґ СЃРёРјРІРѕР», С…СЂР°РЅСЏС‰РёР№СЃСЏ РїРѕРґ СЌС‚РёРј РєРѕРґРѕРј Рё РѕР±РЅСѓР»СЏРµРј РєРѕРґ.
 				break;
 			}
 		}
 	}
 	return decode;
 }
-// Функция, вычисляющая среднюю длину кодов
+// Р¤СѓРЅРєС†РёСЏ, РІС‹С‡РёСЃР»СЏСЋС‰Р°СЏ СЃСЂРµРґРЅСЋСЋ РґР»РёРЅСѓ РєРѕРґРѕРІ
 double avg(map <char, string> table_codes)
 {
 	double avg = 0;
 	map<char, string>::iterator it;
-	for (it = table_codes.begin(); it != table_codes.end(); it++) // Рассматриваем все кодовые слова, пока не встретится необходимый код
+	for (it = table_codes.begin(); it != table_codes.end(); it++) // Р Р°СЃСЃРјР°С‚СЂРёРІР°РµРј РІСЃРµ РєРѕРґРѕРІС‹Рµ СЃР»РѕРІР°, РїРѕРєР° РЅРµ РІСЃС‚СЂРµС‚РёС‚СЃСЏ РЅРµРѕР±С…РѕРґРёРјС‹Р№ РєРѕРґ
 	{
 		avg += it->second.size();
 	}
@@ -195,7 +195,7 @@ double avg(map <char, string> table_codes)
 }
 void test_encode_1()
 {
-	string input = "abc"; // Здесь пишем строку, которую хотим закодировать
+	string input = "abc"; // Р—РґРµСЃСЊ РїРёС€РµРј СЃС‚СЂРѕРєСѓ, РєРѕС‚РѕСЂСѓСЋ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
 	map<char, int> freq_table = frequency_analysis(input);
 	priority_queue<Node*, vector<Node*>, Compare> tree = fill_tree(freq_table);
 	priority_queue<Node*, vector<Node*>, Compare> tree_haffman = to_haffamn(tree);
@@ -217,8 +217,8 @@ void test_encode_1()
 }
 void test_encode_2()
 {
-	// Тест из лекции
-	string input = "this_is_a_simple_example_of_huffman_encoding"; // Здесь пишем строку, которую хотим закодировать
+	// РўРµСЃС‚ РёР· Р»РµРєС†РёРё
+	string input = "this_is_a_simple_example_of_huffman_encoding"; // Р—РґРµСЃСЊ РїРёС€РµРј СЃС‚СЂРѕРєСѓ, РєРѕС‚РѕСЂСѓСЋ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
 	map<char, int> freq_table = frequency_analysis(input);
 	priority_queue<Node*, vector<Node*>, Compare> tree = fill_tree(freq_table);
 	priority_queue<Node*, vector<Node*>, Compare> tree_haffman = to_haffamn(tree);
@@ -226,7 +226,7 @@ void test_encode_2()
 	traversal_tree(&table_codes, tree_haffman.top(), "");
 	check_kraft(table_codes);
 	double avg_t = avg(table_codes);
-	double avg_h = 77. / 18.; // Тут записываем правильный ответ, лучше в дробном формате
+	double avg_h = 77. / 18.; // РўСѓС‚ Р·Р°РїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚, Р»СѓС‡С€Рµ РІ РґСЂРѕР±РЅРѕРј С„РѕСЂРјР°С‚Рµ
 	if (avg_t == avg_h)
 	{
 		system("cls");
@@ -240,8 +240,8 @@ void test_encode_2()
 }
 void test_encode_3()
 {
-	// Тест из лекции
-	string input = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaggggggggggggggggggggrrrrrrrrrrrrrrrooooooooooooooottttttttttcccccccccc"; // Здесь пишем строку, которую хотим закодировать
+	// РўРµСЃС‚ РёР· Р»РµРєС†РёРё
+	string input = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaggggggggggggggggggggrrrrrrrrrrrrrrrooooooooooooooottttttttttcccccccccc"; // Р—РґРµСЃСЊ РїРёС€РµРј СЃС‚СЂРѕРєСѓ, РєРѕС‚РѕСЂСѓСЋ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
 	map<char, int> freq_table = frequency_analysis(input);
 	priority_queue<Node*, vector<Node*>, Compare> tree = fill_tree(freq_table);
 	priority_queue<Node*, vector<Node*>, Compare> tree_haffman = to_haffamn(tree);
@@ -249,7 +249,7 @@ void test_encode_3()
 	traversal_tree(&table_codes, tree_haffman.top(), "");
 	check_kraft(table_codes);
 	double avg_t = avg(table_codes);
-	double avg_h = 16. / 6.; // Тут записываем правильный ответ, лучше в дробном формате
+	double avg_h = 16. / 6.; // РўСѓС‚ Р·Р°РїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚, Р»СѓС‡С€Рµ РІ РґСЂРѕР±РЅРѕРј С„РѕСЂРјР°С‚Рµ
 	if (avg_t == avg_h)
 	{
 		system("cls");
@@ -263,8 +263,8 @@ void test_encode_3()
 }
 void test_encode_4()
 {
-	// Тест из лекции
-	string input = "Шла Саша по шоссе и сосала сушку"; // Здесь пишем строку, которую хотим закодировать
+	// РўРµСЃС‚ РёР· Р»РµРєС†РёРё
+	string input = "РЁР»Р° РЎР°С€Р° РїРѕ С€РѕСЃСЃРµ Рё СЃРѕСЃР°Р»Р° СЃСѓС€РєСѓ"; // Р—РґРµСЃСЊ РїРёС€РµРј СЃС‚СЂРѕРєСѓ, РєРѕС‚РѕСЂСѓСЋ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
 	map<char, int> freq_table = frequency_analysis(input);
 	priority_queue<Node*, vector<Node*>, Compare> tree = fill_tree(freq_table);
 	priority_queue<Node*, vector<Node*>, Compare> tree_haffman = to_haffamn(tree);
@@ -272,7 +272,7 @@ void test_encode_4()
 	traversal_tree(&table_codes, tree_haffman.top(), "");
 	check_kraft(table_codes);
 	double avg_t = avg(table_codes);
-	double avg_h = 53. / 13.; // Тут записываем правильный ответ, лучше в дробном формате
+	double avg_h = 53. / 13.; // РўСѓС‚ Р·Р°РїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚, Р»СѓС‡С€Рµ РІ РґСЂРѕР±РЅРѕРј С„РѕСЂРјР°С‚Рµ
 	if (avg_t == avg_h)
 	{
 		system("cls");
@@ -286,8 +286,8 @@ void test_encode_4()
 }
 void test_encode_5()
 {
-	// Тест из лекции
-	string input = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // Здесь пишем строку, которую хотим закодировать
+	// РўРµСЃС‚ РёР· Р»РµРєС†РёРё
+	string input = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; // Р—РґРµСЃСЊ РїРёС€РµРј СЃС‚СЂРѕРєСѓ, РєРѕС‚РѕСЂСѓСЋ С…РѕС‚РёРј Р·Р°РєРѕРґРёСЂРѕРІР°С‚СЊ
 	map<char, int> freq_table = frequency_analysis(input);
 	priority_queue<Node*, vector<Node*>, Compare> tree = fill_tree(freq_table);
 	priority_queue<Node*, vector<Node*>, Compare> tree_haffman = to_haffamn(tree);
@@ -295,7 +295,7 @@ void test_encode_5()
 	traversal_tree(&table_codes, tree_haffman.top(), "");
 	check_kraft(table_codes);
 	double avg_t = avg(table_codes);
-	double avg_h = 1. / 1.; // Тут записываем правильный ответ, лучше в дробном формате
+	double avg_h = 1. / 1.; // РўСѓС‚ Р·Р°РїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚, Р»СѓС‡С€Рµ РІ РґСЂРѕР±РЅРѕРј С„РѕСЂРјР°С‚Рµ
 	if (avg_t == avg_h)
 	{
 		system("cls");
@@ -309,7 +309,7 @@ void test_encode_5()
 }
 void tests_encode()
 {
-	// Данные тесты сравнивают среднюю длину получившихся кодов со среденей длинной имеющихся кодов
+	// Р”Р°РЅРЅС‹Рµ С‚РµСЃС‚С‹ СЃСЂР°РІРЅРёРІР°СЋС‚ СЃСЂРµРґРЅСЋСЋ РґР»РёРЅСѓ РїРѕР»СѓС‡РёРІС€РёС…СЃСЏ РєРѕРґРѕРІ СЃРѕ СЃСЂРµРґРµРЅРµР№ РґР»РёРЅРЅРѕР№ РёРјРµСЋС‰РёС…СЃСЏ РєРѕРґРѕРІ
 	test_encode_1();
 	system("pause");
 	test_encode_2();
@@ -324,13 +324,13 @@ void tests_encode()
 void test_decode_1()
 {
 	map <char, string> table_codes;
-	// Декодируемое сообщение
+	// Р”РµРєРѕРґРёСЂСѓРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 	string code = "10110";
-	// Заполнение код-символ
+	// Р—Р°РїРѕР»РЅРµРЅРёРµ РєРѕРґ-СЃРёРјРІРѕР»
 	table_codes['a'] = "10";// 1
 	table_codes['b'] = "11";// 2
 	table_codes['c'] = "0";// 3
-	string answer = "abc"; // Тут вписываем правильный ответ
+	string answer = "abc"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
 	if (decoding_to_decode(code, table_codes) == answer)
 	{
 		system("cls");
@@ -345,9 +345,9 @@ void test_decode_1()
 void test_decode_2()
 {
 	map <char, string> table_codes;
-	// Декодируемое сообщение
+	// Р”РµРєРѕРґРёСЂСѓРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 	string code = "0000100011111100011011111000110011111010001111101000100101111011011100100001111010001001011110110001110011100001010011001100110100111101111011101011011000011000001111101101101";
-	// Заполнение код-символ
+	// Р—Р°РїРѕР»РЅРµРЅРёРµ РєРѕРґ-СЃРёРјРІРѕР»
 	table_codes['_'] = "110";// 1
 	table_codes['a'] = "0111";// 2
 	table_codes['c'] = "01100";// 3
@@ -366,7 +366,7 @@ void test_decode_2()
 	table_codes['t'] = "00001";// 16
 	table_codes['u'] = "01001";// 17
 	table_codes['x'] = "01000";// 18
-	string answer = "this_is_a_simple_example_of_huffman_encoding"; // Тут вписываем правильный ответ
+	string answer = "this_is_a_simple_example_of_huffman_encoding"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
 	if (decoding_to_decode(code, table_codes) == answer)
 	{
 		system("cls");
@@ -381,16 +381,16 @@ void test_decode_2()
 void test_decode_3()
 {
 	map <char, string> table_codes;
-	// Декодируемое сообщение
+	// Р”РµРєРѕРґРёСЂСѓРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 	string code = "1111111111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000101101101101101101101101101101101101101101101100100100100100100100100100100100100100100100011011011011011011011011011011010010010010010010010010010010";
-	// Заполнение код-символ
+	// Р—Р°РїРѕР»РЅРµРЅРёРµ РєРѕРґ-СЃРёРјРІРѕР»
 	table_codes['a'] = "11";// 1
 	table_codes['c'] = "010";// 2
 	table_codes['g'] = "00";// 3
 	table_codes['o'] = "100";// 4
 	table_codes['r'] = "101";// 5
 	table_codes['t'] = "011";// 6
-	string answer = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaggggggggggggggggggggrrrrrrrrrrrrrrrooooooooooooooottttttttttcccccccccc"; // Тут вписываем правильный ответ
+	string answer = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaggggggggggggggggggggrrrrrrrrrrrrrrrooooooooooooooottttttttttcccccccccc"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
 	if (decoding_to_decode(code, table_codes) == answer)
 	{
 		system("cls");
@@ -405,14 +405,14 @@ void test_decode_3()
 void test_decode_4()
 {
 	map <char, string> table_codes;
-	// Декодируемое сообщение
+	// Р”РµРєРѕРґРёСЂСѓРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 	string code = "00011111110";
-	// Заполнение код-символ
-	table_codes['А'] = "0";// 1
-	table_codes['Б'] = "11";// 2
-	table_codes['С'] = "10";// 3
+	// Р—Р°РїРѕР»РЅРµРЅРёРµ РєРѕРґ-СЃРёРјРІРѕР»
+	table_codes['Рђ'] = "0";// 1
+	table_codes['Р‘'] = "11";// 2
+	table_codes['РЎ'] = "10";// 3
 
-	string answer = "АААБББС"; // Тут вписываем правильный ответ
+	string answer = "РђРђРђР‘Р‘Р‘РЎ"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
 	if (decoding_to_decode(code, table_codes) == answer)
 	{
 		system("cls");
@@ -427,11 +427,11 @@ void test_decode_4()
 void test_decode_5()
 {
 	map <char, string> table_codes;
-	// Декодируемое сообщение
+	// Р”РµРєРѕРґРёСЂСѓРµРјРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
 	string code = "00";
-	// Заполнение код-символ
+	// Р—Р°РїРѕР»РЅРµРЅРёРµ РєРѕРґ-СЃРёРјРІРѕР»
 	table_codes['a'] = "0";// 1
-	string answer = "aa"; // Тут вписываем правильный ответ
+	string answer = "aa"; // РўСѓС‚ РІРїРёСЃС‹РІР°РµРј РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚
 	if (decoding_to_decode(code, table_codes) == answer)
 	{
 		system("cls");

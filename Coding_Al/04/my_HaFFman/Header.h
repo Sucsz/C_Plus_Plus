@@ -6,25 +6,25 @@
 #include <cmath>
 
 using namespace std;
-struct Node // Узел дерева Хаффмана
+struct Node // РЈР·РµР» РґРµСЂРµРІР° РҐР°С„С„РјР°РЅР°
 {
 	int rib;
 	string code;
 	char symbol;
-	string value; // Здесь будет лежать конкатенация символов узлов
+	string value; // Р—РґРµСЃСЊ Р±СѓРґРµС‚ Р»РµР¶Р°С‚СЊ РєРѕРЅРєР°С‚РµРЅР°С†РёСЏ СЃРёРјРІРѕР»РѕРІ СѓР·Р»РѕРІ
 	unsigned amount;
 	Node* left;
 	Node* right;
-	Node(char sym, unsigned am) { symbol = sym; value = sym; amount = am; left = right = 0; } // Конструктов по-умолчнанию для создания объекта-компоратора
-	Node(Node* l, Node* r) { symbol = NULL; rib = -1; value += l->value; value += r->value; left = l; right = r; amount = l->amount + r->amount; } // Объединение узлов в один, нам безразлично, как называется данный узел
-};							 // Инициализация "невозможными" случаями
+	Node(char sym, unsigned am) { symbol = sym; value = sym; amount = am; left = right = 0; } // РљРѕРЅСЃС‚СЂСѓРєС‚РѕРІ РїРѕ-СѓРјРѕР»С‡РЅР°РЅРёСЋ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РѕР±СЉРµРєС‚Р°-РєРѕРјРїРѕСЂР°С‚РѕСЂР°
+	Node(Node* l, Node* r) { symbol = NULL; rib = -1; value += l->value; value += r->value; left = l; right = r; amount = l->amount + r->amount; } // РћР±СЉРµРґРёРЅРµРЅРёРµ СѓР·Р»РѕРІ РІ РѕРґРёРЅ, РЅР°Рј Р±РµР·СЂР°Р·Р»РёС‡РЅРѕ, РєР°Рє РЅР°Р·С‹РІР°РµС‚СЃСЏ РґР°РЅРЅС‹Р№ СѓР·РµР»
+};							 // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ "РЅРµРІРѕР·РјРѕР¶РЅС‹РјРё" СЃР»СѓС‡Р°СЏРјРё
 
 struct Compare
 {
-	bool operator() (Node* x, Node* y) { return x->amount > y->amount; }	// Компаратор
+	bool operator() (Node* x, Node* y) { return x->amount > y->amount; }	// РљРѕРјРїР°СЂР°С‚РѕСЂ
 };
 
-// Сигнатуры функций
+// РЎРёРіРЅР°С‚СѓСЂС‹ С„СѓРЅРєС†РёР№
 map<char, int> frequency_analysis(string);
 void show_freq_table(map<char, int>);
 void show_table_codes(map<char, string>);
@@ -35,16 +35,16 @@ void check_kraft(map<char, string>);
 string encoding_to_code(string input, map<char, string>);
 string decoding_to_decode(string code, map<char, string>);
 double avg(map <char, string>);
-// Сигнатуры тестов
+// РЎРёРіРЅР°С‚СѓСЂС‹ С‚РµСЃС‚РѕРІ
 void test_encode_1();
 void test_encode_2();
 void test_encode_3();
 void test_encode_4();
 void test_encode_5();
-void tests_encode(); // Тесты кодирования
+void tests_encode(); // РўРµСЃС‚С‹ РєРѕРґРёСЂРѕРІР°РЅРёСЏ
 void test_decode_1();
 void test_decode_2();
 void test_decode_3();
 void test_decode_4();
 void test_decode_5();
-void tests_decode(); // Тесты декодирования
+void tests_decode(); // РўРµСЃС‚С‹ РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ
